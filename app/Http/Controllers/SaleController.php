@@ -930,7 +930,7 @@ class SaleController extends Controller
             $lims_warehouse_list = Warehouse::where('is_active', true)->get();
             $lims_biller_list = Biller::where('is_active', true)->get();
             $lims_tax_list = Tax::where('is_active', true)->get();
-            $lims_product_list = Product::select('id', 'name', 'code', 'image')->where('type', 'LIKE', 'Deal')->orWhere('type', 'LIKE', 'Service')->ActiveFeatured()->whereNull('is_variant')->get();
+            $lims_product_list = Product::select('id', 'name', 'code', 'image')->where('type', '=', 'Deal')->orWhere('type', '=', 'Service')->ActiveFeatured()->whereNull('is_variant')->get();
             foreach ($lims_product_list as $key => $product) {
                 $images = explode(",", $product->image);
                 $product->base_image = $images[0];
