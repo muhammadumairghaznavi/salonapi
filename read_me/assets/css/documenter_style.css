@@ -34,7 +34,7 @@ body{
 footer, header, section {
 	display:block;
 }
-a{ color:#7c5cc4; text-decoration:none; cursor:pointer; }
+a{ color:#4a1616; text-decoration:none; cursor:pointer; }
 a:hover { text-decoration:underline }
 p, ul, ol{
 	margin:18px 0;
@@ -120,10 +120,10 @@ strong{
 	z-index:100;
 }
 #documenter_sidebar a:hover{
-	color: #7c5cc4;
+	color: #4a1616;
 }
 #documenter_sidebar a.current{
-	color: #7c5cc4;
+	color: #4a1616;
 }
 img{
 	border: 20px solid #ddd;

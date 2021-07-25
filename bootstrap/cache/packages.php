@@ -17,6 +17,20 @@
       0 => 'Fideloper\\Proxy\\TrustedProxyServiceProvider',
     ),
   ),
+  'infyomlabs/adminlte-templates' => 
+  array (
+    'providers' => 
+    array (
+      0 => '\\InfyOm\\AdminLTETemplates\\AdminLTETemplatesServiceProvider',
+    ),
+  ),
+  'infyomlabs/laravel-generator' => 
+  array (
+    'providers' => 
+    array (
+      0 => '\\InfyOm\\Generator\\InfyOmGeneratorServiceProvider',
+    ),
+  ),
   'intervention/image' => 
   array (
     'providers' => 
@@ -26,6 +40,17 @@
     'aliases' => 
     array (
       'Image' => 'Intervention\\Image\\Facades\\Image',
+    ),
+  ),
+  'laracasts/flash' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'Laracasts\\Flash\\FlashServiceProvider',
+    ),
+    'aliases' => 
+    array (
+      'Flash' => 'Laracasts\\Flash\\Flash',
     ),
   ),
   'laravel/tinker' => 

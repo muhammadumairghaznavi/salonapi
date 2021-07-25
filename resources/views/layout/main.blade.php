@@ -144,7 +144,7 @@
                     ])->first();
                   ?>
                   @if($add_permission_active)
-                  <li id="product-create-menu"><a href="{{route('products.create')}}">{{__('file.add_product')}}</a></li>
+                  <li id="product-create-menu"><a href="{{route('products.create')}}">Add Product/Deal/Service</a></li>
                   @endif
                   @endif
                   @if($print_barcode_active)

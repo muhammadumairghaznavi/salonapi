@@ -74,6 +74,7 @@ Route::group(['middleware' => ['auth', 'active']], function() {
 	Route::post('products/deletebyselection', 'ProductController@deleteBySelection');
 	Route::post('products/update', 'ProductController@updateProduct');
 	Route::resource('products', 'ProductController');
+	Route::resource('deals', 'DealController');
 
 	Route::post('importcustomer_group', 'CustomerGroupController@importCustomerGroup')->name('customer_group.import');
 	Route::post('customer_group/deletebyselection', 'CustomerGroupController@deleteBySelection');
@@ -290,4 +291,6 @@ Route::group(['middleware' => ['auth', 'active']], function() {
 	Route::get('/home', 'HomeController@index')->name('home');
 	Route::get('my-transactions/{year}/{month}', 'HomeController@myTransaction');
 });
+
+
 
