@@ -931,6 +931,7 @@ class SaleController extends Controller
             $lims_biller_list = Biller::where('is_active', true)->get();
             $lims_tax_list = Tax::where('is_active', true)->get();
             $lims_product_list = Product::select('id', 'name', 'code', 'image')->where('type', '=', 'Deal')->orWhere('type', '=', 'Service')->ActiveFeatured()->whereNull('is_variant')->get();
+            // dd($lims_product_list);
             foreach ($lims_product_list as $key => $product) {
                 $images = explode(",", $product->image);
                 $product->base_image = $images[0];
@@ -953,8 +954,8 @@ class SaleController extends Controller
             $product_number = count($lims_product_list);
             $lims_pos_setting_data = PosSetting::latest()->first();
             $lims_brand_list = Brand::where('is_active',true)->get();
-            $dealandservice = ['Deals', 'Services'];
-            $lims_category_list = Category::whereIn('name', $dealandservice)->get();
+            // $dealandservice = ['Deals', 'Services'];
+            $lims_category_list = Category::all();
 //            dd($lims_category_list);
 
             if(Auth::user()->role_id > 2 && config('staff_access') == 'own') {
@@ -989,30 +990,36 @@ class SaleController extends Controller
                                 ->where([
                                     ['products.is_active', true],
                                     ['products.category_id', $category_id],
-                                    ['brand_id', $brand_id]
+                                    ['brand_id', $brand_id],
+                                    ['products.type', 'Deal'],
+                                    
                                 ])->orWhere([
                                     ['categories.parent_id', $category_id],
                                     ['products.is_active', true],
-                                    ['brand_id', $brand_id]
+                                    ['brand_id', $brand_id],
+                                    
+                                    ['products.type', 'Service']
                                 ])->select('products.name', 'products.code', 'products.image')->get();
         }
+        
         elseif(($category_id != 0) && ($brand_id == 0)){
             $lims_product_list = DB::table('products')
                                 ->join('categories', 'products.category_id', '=', 'categories.id')
                                 ->where([
                                     ['products.is_active', true],
                                     ['products.category_id', $category_id],
+                                    ['products.type', 'Deal'],
                                 ])->orWhere([
                                     ['categories.parent_id', $category_id],
-                                    ['products.is_active', true]
+                                    ['products.is_active', true],
+                                    ['products.type', 'Service']
                                 ])->select('products.id', 'products.name', 'products.code', 'products.image', 'products.is_variant')->get();
         }
         elseif(($category_id == 0) && ($brand_id != 0)){
             $lims_product_list = Product::where([
                                 ['brand_id', $brand_id],
                                 ['is_active', true]
-                            ])
-                            ->select('products.id', 'products.name', 'products.code', 'products.image', 'products.is_variant')
+            ]               )->select('products.id', 'products.name', 'products.code', 'products.image', 'products.is_variant')
                             ->get();
         }
         else
@@ -1040,6 +1047,7 @@ class SaleController extends Controller
             }
         }
         return $data;
+        // dd($lims_product_list);
     }
 
     public function getFeatured()
@@ -1048,7 +1056,7 @@ class SaleController extends Controller
         $lims_product_list = Product::where([
             ['is_active', true],
             ['featured', true]
-        ])->where('name', 'LIKE', 'deal%')->orWhere('name', 'LIKE', 'service%')
+        ])->where('type', '=', 'Deal')->orWhere('type', '=', 'Service')
             ->select('products.id', 'products.name', 'products.code', 'products.image', 'products.is_variant')->get();
         $index = 0;
         foreach ($lims_product_list as $product) {

@@ -15,12 +15,12 @@
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label>{{trans('file.Product Type')}} *</strong> </label>
+                                        <label>{{trans('file.Type')}} *</strong> </label>
                                         <div class="input-group">
                                             <select name="type" required class="form-control selectpicker" id="type">
                                                 <option value="inventory">Inventory</option>
-                                                <option value="deal">Deal</option>
-                                                <option value="service">Service</option>
+                                                <option value="Deal">Deal</option>
+                                                <option value="Service">Service</option>
                                             </select>
                                         </div>
                                     </div>
@@ -115,6 +115,12 @@
                                       <span class="validation-msg"></span>
                                     </div>
                                 </div>
+                                <div id="alert-qty" class="col-md-4">
+                                    <div class="form-group">
+                                        <label>{{trans('file.Alert Quantity')}}</strong> </label>
+                                        <input type="number" name="alert_quantity" class="form-control" step="any">
+                                    </div>
+                                </div>
                                 <div id="unit" class="col-md-12">
                                     <div class="row ">
                                         <div class="col-md-4 form-group">
@@ -166,12 +172,7 @@
                                         <input type="hidden" name="qty" value="0.00">
                                     </div>
                                 </div>
-                                <div id="alert-qty" class="col-md-4">
-                                    <div class="form-group">
-                                        <label>{{trans('file.Alert Quantity')}}</strong> </label>
-                                        <input type="number" name="alert_quantity" class="form-control" step="any">
-                                    </div>
-                                </div>
+                                
                                 <!-- <div class="col-md-4">
                                     <div class="form-group">
                                         <label>{{trans('file.Product Tax')}}</strong> </label>
