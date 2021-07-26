@@ -770,7 +770,7 @@
                     } else {
                         $.ajax({
                             type: 'POST',
-                            url: '{{ route(' products.store ') }}',
+                            url: '{{ route('products.store') }}',
                             data: $("#product-form").serialize(),
                             success: function(response) {
                                 //console.log(response);

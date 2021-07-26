@@ -772,7 +772,7 @@
                     } else {
                         $.ajax({
                             type: 'POST',
-                            url: '<?php echo e(route(' products.store ')); ?>',
+                            url: '<?php echo e(route('products.store')); ?>',
                             data: $("#product-form").serialize(),
                             success: function(response) {
                                 //console.log(response);
