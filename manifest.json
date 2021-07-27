@@ -1,7 +1,7 @@
 {
     "name": "VillaSaloon",
     "short_name": "VillaSaloon",
-    "start_url": "/newsaloon/",
+    "start_url": "/salonapi/",
     "background_color": "#fff",
     "display": "standalone",
     "orientation": "portrait",

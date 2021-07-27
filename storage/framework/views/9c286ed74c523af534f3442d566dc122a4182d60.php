@@ -4,12 +4,12 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>{{$general_setting->site_title}}</title>
+    <title><?php echo e($general_setting->site_title); ?></title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="all,follow">
-    <link rel="manifest" href="{{url('manifest.json')}}">
-    <link rel="icon" type="image/png" href="{{url('public/logo', $general_setting->site_logo)}}" />
+    <link rel="manifest" href="<?php echo e(url('manifest.json')); ?>">
+    <link rel="icon" type="image/png" href="<?php echo e(url('public/logo', $general_setting->site_logo)); ?>" />
     <!-- Bootstrap CSS-->
     <link rel="stylesheet" href="<?php echo asset('public/vendor/bootstrap/css/bootstrap.min.css') ?>" type="text/css">
     <link rel="stylesheet" href="<?php echo asset('public/vendor/bootstrap/css/bootstrap-datepicker.min.css') ?>" type="text/css">
@@ -52,48 +52,48 @@
         <div class="form-outer text-center d-flex align-items-center">
           <div class="form-inner">
             <div class="logo">
-                @if($general_setting->site_logo)
-                <img src="{{url('public/logo', $general_setting->site_logo)}}" style="border-radius: 50%;" width="110">
-                @else
-                <span>{{$general_setting->site_title}}</span>
-                @endif
+                <?php if($general_setting->site_logo): ?>
+                <img src="<?php echo e(url('public/logo', $general_setting->site_logo)); ?>" style="border-radius: 50%;" width="110">
+                <?php else: ?>
+                <span><?php echo e($general_setting->site_title); ?></span>
+                <?php endif; ?>
             </div>
-            @if(session()->has('delete_message'))
-            <div class="alert alert-danger alert-dismissible text-center"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>{{ session()->get('delete_message') }}</div>
-            @endif
-            <form method="POST" action="{{ route('login') }}" id="login-form">
-              @csrf
+            <?php if(session()->has('delete_message')): ?>
+            <div class="alert alert-danger alert-dismissible text-center"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button><?php echo e(session()->get('delete_message')); ?></div>
+            <?php endif; ?>
+            <form method="POST" action="<?php echo e(route('login')); ?>" id="login-form">
+              <?php echo csrf_field(); ?>
               <div class="form-group-material">
                 <input id="login-username" type="text" name="name" required class="input-material" value="">
-                <label for="login-username" class="label-material">{{trans('file.UserName')}}</label>
-                @if ($errors->has('name'))
+                <label for="login-username" class="label-material"><?php echo e(trans('file.UserName')); ?></label>
+                <?php if($errors->has('name')): ?>
                     <p>
-                        <strong>{{ $errors->first('name') }}</strong>
+                        <strong><?php echo e($errors->first('name')); ?></strong>
                     </p>
-                @endif
+                <?php endif; ?>
               </div>
 
               <div class="form-group-material">
                 <input id="login-password" type="password" name="password" required class="input-material" value="">
-                <label for="login-password" class="label-material">{{trans('file.Password')}}</label>
-                @if ($errors->has('password'))
+                <label for="login-password" class="label-material"><?php echo e(trans('file.Password')); ?></label>
+                <?php if($errors->has('password')): ?>
                     <p>
-                        <strong>{{ $errors->first('password') }}</strong>
+                        <strong><?php echo e($errors->first('password')); ?></strong>
                     </p>
-                @endif
+                <?php endif; ?>
               </div>
-              <button type="submit" class="btn btn-primary btn-block">{{trans('file.LogIn')}}</button>
+              <button type="submit" class="btn btn-primary btn-block"><?php echo e(trans('file.LogIn')); ?></button>
             </form>
             <!-- This three button for demo only-->
             <!-- <button type="submit" class="btn btn-success admin-btn">LogIn as Admin</button>
             <button type="submit" class="btn btn-info staff-btn">LogIn as Staff</button>
             <button type="submit" class="btn btn-dark customer-btn">LogIn as Customer</button> -->
             <br><br>
-            <a href="{{ route('password.request') }}" class="forgot-pass">{{trans('file.Forgot Password?')}}</a>
-            <p>{{trans('file.Do not have an account?')}}</p><a href="{{url('register')}}" class="signup">{{trans('file.Register')}}</a>
+            <a href="<?php echo e(route('password.request')); ?>" class="forgot-pass"><?php echo e(trans('file.Forgot Password?')); ?></a>
+            <p><?php echo e(trans('file.Do not have an account?')); ?></p><a href="<?php echo e(url('register')); ?>" class="signup"><?php echo e(trans('file.Register')); ?></a>
           </div>
           <div class="copyrights text-center">
-            <p>{{trans('file.Developed By')}} <span class="external">{{$general_setting->developed_by}}</span></p>
+            <p><?php echo e(trans('file.Developed By')); ?> <span class="external"><?php echo e($general_setting->developed_by); ?></span></p>
           </div>
         </div>
       </div>
@@ -103,7 +103,7 @@
 <script>
     if ('serviceWorker' in navigator ) {
         window.addEventListener('load', function() {
-            navigator.serviceWorker.register('/salonapi/service-worker.js').then(function(registration) {
+            navigator.serviceWorker.register('/newsaloon/service-worker.js').then(function(registration) {
                 // Registration was successful
                 console.log('ServiceWorker registration successful with scope: ', registration.scope);
             }, function(err) {
@@ -153,3 +153,4 @@
         }
     });
 </script>
+<?php /**PATH D:\xampp\htdocs\salonapi\resources\views/auth/login.blade.php ENDPATH**/ ?>

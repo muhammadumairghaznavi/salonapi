@@ -213,7 +213,8 @@ class ProductController extends Controller
             $lims_unit_list = Unit::where('is_active', true)->get();
             $lims_tax_list = Tax::where('is_active', true)->get();
             $lims_warehouse_list = Warehouse::where('is_active', true)->get();
-            $lims_product_inventory = Product::where([['is_active', true], ['type', 'Inventory']]);
+            $lims_product_inventory = Product::where([['is_active', true], ['type', 'Inventory']])->get();
+            // dd($lims_product_inventory);
             return view('product.create',compact('lims_product_list', 'lims_brand_list', 'lims_category_list', 'lims_unit_list', 'lims_tax_list', 'lims_warehouse_list', 'lims_product_inventory'));
         }
         else

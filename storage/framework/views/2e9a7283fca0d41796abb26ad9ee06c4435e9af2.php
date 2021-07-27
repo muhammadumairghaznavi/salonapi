@@ -1,6 +1,4 @@
-@extends('layout.main')
-
-@section('content')
+<?php $__env->startSection('content'); ?>
 <section class="forms">
     <div class="container-fluid">
         <div class="row">
@@ -11,13 +9,13 @@
                     </div>
                     <div class="card-body">
                         <p class="italic">
-                            <small>{{ trans('file.The field labels marked with * are required input fields') }}.</small>
+                            <small><?php echo e(trans('file.The field labels marked with * are required input fields')); ?>.</small>
                         </p>
                         <form id="product-form">
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label>{{ trans('file.Type') }} *</strong> </label>
+                                        <label><?php echo e(trans('file.Type')); ?> *</strong> </label>
                                         <div class="input-group">
                                             <select name="type" required class="form-control selectpicker" id="type">
 
@@ -42,7 +40,7 @@
                                         <div class="input-group">
                                             <input type="text" name="code" class="form-control" id="code" aria-describedby="code" required>
                                             <div class="input-group-append">
-                                                <button id="genbutton" type="button" class="btn btn-sm btn-default" title="{{ trans('file.Generate') }}"><i class="fa fa-refresh"></i></button>
+                                                <button id="genbutton" type="button" class="btn btn-sm btn-default" title="<?php echo e(trans('file.Generate')); ?>"><i class="fa fa-refresh"></i></button>
                                             </div>
                                         </div>
                                         <span class="validation-msg" id="code-error"></span>
@@ -50,7 +48,7 @@
                                 </div>
                                 <!-- <div class="col-md-4">
                                         <div class="form-group">
-                                            <label>{{ trans('file.Barcode Symbology') }} *</strong> </label>
+                                            <label><?php echo e(trans('file.Barcode Symbology')); ?> *</strong> </label>
                                             <div class="input-group">
                                                 <select name="barcode_symbology" required class="form-control selectpicker">
                                                     <option value="C128">Code 128</option>
@@ -65,7 +63,7 @@
                                     </div> -->
                                 <div id="digital" class="col-md-4">
                                     <div class="form-group">
-                                        <label>{{ trans('file.Attach File') }} *</strong> </label>
+                                        <label><?php echo e(trans('file.Attach File')); ?> *</strong> </label>
                                         <div class="input-group">
                                             <input type="file" name="file" class="form-control">
                                         </div>
@@ -73,19 +71,19 @@
                                     </div>
                                 </div>
                                 <div id="combo" class="col-md-9 mb-1">
-                                    <label>{{ trans('file.add_product') }}</label>
+                                    <label><?php echo e(trans('file.add_product')); ?></label>
                                     <div class="search-box input-group mb-3">
                                         <button class="btn btn-secondary"><i class="fa fa-barcode"></i></button>
                                         <input type="text" name="product_code_name" id="lims_productcodeSearch" placeholder="Please type product code and select..." class="form-control" />
                                     </div>
-                                    <label>{{ trans('file.Combo Products') }}</label>
+                                    <label><?php echo e(trans('file.Combo Products')); ?></label>
                                     <div class="table-responsive">
                                         <table id="myTable" class="table table-hover order-list">
                                             <thead>
                                                 <tr>
-                                                    <th>{{ trans('file.product') }}</th>
-                                                    <th>{{ trans('file.Quantity') }}</th>
-                                                    <th>{{ trans('file.Unit Price') }}</th>
+                                                    <th><?php echo e(trans('file.product')); ?></th>
+                                                    <th><?php echo e(trans('file.Quantity')); ?></th>
+                                                    <th><?php echo e(trans('file.Unit Price')); ?></th>
                                                     <th><i class="dripicons-trash"></i></th>
                                                 </tr>
                                             </thead>
@@ -99,9 +97,9 @@
                                         <label class="help-text"></strong> </label> <label for="">Brand *</label>
                                         <div class="input-group">
                                             <select name="brand_id" class="selectpicker form-control" data-live-search="true" data-live-search-style="begins" title="Select Brand...">
-                                                @foreach ($lims_brand_list as $brand)
-                                                <option value="{{ $brand->id }}">{{ $brand->title }}</option>
-                                                @endforeach
+                                                <?php $__currentLoopData = $lims_brand_list; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $brand): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                                <option value="<?php echo e($brand->id); ?>"><?php echo e($brand->title); ?></option>
+                                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                             </select>
                                         </div>
                                     </div>
@@ -111,9 +109,9 @@
                                         <label class="help-text"> </strong> </label> <label for="">Category *</label>
                                         <div class="input-group">
                                             <select name="category_id" required class="selectpicker form-control" data-live-search="true" data-live-search-style="begins" title="Select Category...">
-                                                @foreach ($lims_category_list as $category)
-                                                <option value="{{ $category->id }}">{{ $category->name }}</option>
-                                                @endforeach
+                                                <?php $__currentLoopData = $lims_category_list; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $category): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                                <option value="<?php echo e($category->id); ?>"><?php echo e($category->name); ?></option>
+                                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                             </select>
                                         </div>
                                         <span class="validation-msg"></span>
@@ -132,18 +130,19 @@
                                             <div class="input-group">
                                                 <select required class="form-control selectpicker" name="unit_id">
                                                     <option value="" disabled selected>Select Product Unit...</option>
-                                                    @foreach ($lims_unit_list as $unit)
-                                                    @if ($unit->base_unit == null)
-                                                    <option value="{{ $unit->id }}">{{ $unit->unit_name }}
+                                                    <?php $__currentLoopData = $lims_unit_list; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $unit): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                                    <?php if($unit->base_unit == null): ?>
+                                                    <option value="<?php echo e($unit->id); ?>"><?php echo e($unit->unit_name); ?>
+
                                                     </option>
-                                                    @endif
-                                                    @endforeach
+                                                    <?php endif; ?>
+                                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                                 </select>
                                             </div>
                                             <span class="validation-msg"></span>
                                         </div>
                                         <div class="col-md-4">
-                                            <label>{{ trans('file.Sale Unit') }}</strong> </label>
+                                            <label><?php echo e(trans('file.Sale Unit')); ?></strong> </label>
                                             <div class="input-group">
                                                 <select class="form-control selectpicker" name="sale_unit_id">
                                                 </select>
@@ -151,7 +150,7 @@
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group">
-                                                <label>{{ trans('file.Purchase Unit') }}</strong> </label>
+                                                <label><?php echo e(trans('file.Purchase Unit')); ?></strong> </label>
                                                 <div class="input-group">
                                                     <select class="form-control selectpicker" name="purchase_unit_id">
                                                     </select>
@@ -162,7 +161,7 @@
                                 </div>
                                 <!-- <div id="cost" class="col-md-4">
                                          <div class="form-group">
-                                            <label>{{ trans('file.Product Cost') }} *</strong> </label>
+                                            <label><?php echo e(trans('file.Product Cost')); ?> *</strong> </label>
                                             <input type="number" name="cost" required class="form-control" step="any">
                                             <span class="validation-msg"></span>
                                         </div>
@@ -180,48 +179,50 @@
 
                                 <!-- <div class="col-md-4">
                                         <div class="form-group">
-                                            <label>{{ trans('file.Product Tax') }}</strong> </label>
+                                            <label><?php echo e(trans('file.Product Tax')); ?></strong> </label>
                                             <select name="tax_id" class="form-control selectpicker">
                                                 <option value="">No Tax</option>
-                                                @foreach ($lims_tax_list as $tax)
-                                                    <option value="{{ $tax->id }}">{{ $tax->name }}</option>
-                                                @endforeach
+                                                <?php $__currentLoopData = $lims_tax_list; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $tax): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                                    <option value="<?php echo e($tax->id); ?>"><?php echo e($tax->name); ?></option>
+                                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                             </select>
                                         </div>
                                     </div> -->
                                 <!-- <div class="col-md-4">
                                         <div class="form-group">
-                                            <label>{{ trans('file.Tax Method') }}</strong> </label> <i class="dripicons-question" data-toggle="tooltip" title="{{ trans('file.Exclusive: Poduct price = Actual product price + Tax. Inclusive: Actual product price = Product price - Tax') }}"></i>
+                                            <label><?php echo e(trans('file.Tax Method')); ?></strong> </label> <i class="dripicons-question" data-toggle="tooltip" title="<?php echo e(trans('file.Exclusive: Poduct price = Actual product price + Tax. Inclusive: Actual product price = Product price - Tax')); ?>"></i>
                                             <select name="tax_method" class="form-control selectpicker">
-                                                <option value="1">{{ trans('file.Exclusive') }}</option>
-                                                <option value="2">{{ trans('file.Inclusive') }}</option>
+                                                <option value="1"><?php echo e(trans('file.Exclusive')); ?></option>
+                                                <option value="2"><?php echo e(trans('file.Inclusive')); ?></option>
                                             </select>
                                         </div>
                                     </div> -->
                                 <div class="col-md-4">
                                     <div class="form-group mt-3">
                                         <input type="checkbox" name="featured" value="1">&nbsp;
-                                        <label>{{ trans('file.Featured') }}</label>
-                                        <p class="italic">{{ trans('file.Featured item will be displayed in POS') }}
+                                        <label><?php echo e(trans('file.Featured')); ?></label>
+                                        <p class="italic"><?php echo e(trans('file.Featured item will be displayed in POS')); ?>
+
                                         </p>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label class="help-text"></strong> </label> <label for="">Image</label> <i class="dripicons-question" data-toggle="tooltip" title="{{ trans('file.You can upload multiple image. Only .jpeg, .jpg, .png, .gif file can be uploaded. First image will be base image.') }}"></i>
+                                        <label class="help-text"></strong> </label> <label for="">Image</label> <i class="dripicons-question" data-toggle="tooltip" title="<?php echo e(trans('file.You can upload multiple image. Only .jpeg, .jpg, .png, .gif file can be uploaded. First image will be base image.')); ?>"></i>
                                         <div id="imageUpload" class="dropzone"></div>
                                         <span class="validation-msg" id="image-error"></span>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label>{{ trans('file.Product Details') }}</label>
+                                        <label><?php echo e(trans('file.Product Details')); ?></label>
                                         <textarea name="product_details" class="form-control" rows="3"></textarea>
                                     </div>
                                 </div>
                                 <div class="col-md-12 mt-2" id="diffPrice-option">
                                     <h5><input name="is_diffPrice" type="checkbox" id="is-diffPrice" value="1">&nbsp;
-                                        {{ trans('file.This product has different price for different warehouse') }}
+                                        <?php echo e(trans('file.This product has different price for different warehouse')); ?>
+
                                     </h5>
                                 </div>
                                 <div class="col-md-6" id="diffPrice-section">
@@ -229,18 +230,19 @@
                                         <table id="diffPrice-table" class="table table-hover">
                                             <thead>
                                                 <tr>
-                                                    <th>{{ trans('file.Warehouse') }}</th>
-                                                    <th>{{ trans('file.Price') }}</th>
+                                                    <th><?php echo e(trans('file.Warehouse')); ?></th>
+                                                    <th><?php echo e(trans('file.Price')); ?></th>
                                                 </tr>
-                                                @foreach ($lims_warehouse_list as $warehouse)
+                                                <?php $__currentLoopData = $lims_warehouse_list; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $warehouse): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                                 <tr>
                                                     <td>
-                                                        <input type="hidden" name="warehouse_id[]" value="{{ $warehouse->id }}">
-                                                        {{ $warehouse->name }}
+                                                        <input type="hidden" name="warehouse_id[]" value="<?php echo e($warehouse->id); ?>">
+                                                        <?php echo e($warehouse->name); ?>
+
                                                     </td>
                                                     <td><input type="number" name="diff_price[]" class="form-control"></td>
                                                 </tr>
-                                                @endforeach
+                                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                             </thead>
                                             <tbody>
                                             </tbody>
@@ -250,16 +252,16 @@
 
                                 <div class="col-md-12" id="variant-section">
                                     <div class="col-md-6 form-group mt-2">
-                                        <input type="text" name="variant" class="form-control" placeholder="{{ trans('file.Enter variant seperated by comma') }}">
+                                        <input type="text" name="variant" class="form-control" placeholder="<?php echo e(trans('file.Enter variant seperated by comma')); ?>">
                                     </div>
                                     <div class="table-responsive ml-2">
                                         <table id="variant-table" class="table table-hover variant-list">
                                             <thead>
                                                 <tr>
                                                     <th><i class="dripicons-view-apps"></i></th>
-                                                    <th>{{ trans('file.name') }}</th>
-                                                    <th>{{ trans('file.Item Code') }}</th>
-                                                    <th>{{ trans('file.Additional Price') }}</th>
+                                                    <th><?php echo e(trans('file.name')); ?></th>
+                                                    <th><?php echo e(trans('file.Item Code')); ?></th>
+                                                    <th><?php echo e(trans('file.Additional Price')); ?></th>
                                                     <th><i class="dripicons-trash"></i></th>
                                                 </tr>
                                             </thead>
@@ -271,18 +273,18 @@
                                 <div class="col-md-4 mt-3">
                                     <input name="promotion" type="checkbox" id="promotion" value="1">&nbsp;
                                     <label>
-                                        <h5> {{ trans('file.Add Promotional Price') }}</h5>
+                                        <h5> <?php echo e(trans('file.Add Promotional Price')); ?></h5>
                                     </label>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="row">
                                         <div class="col-md-4" id="promotion_price">
-                                            <label>{{ trans('file.Promotional Price') }}</label>
+                                            <label><?php echo e(trans('file.Promotional Price')); ?></label>
                                             <input type="number" name="promotion_price" class="form-control" step="any" />
                                         </div>
                                         <div class="col-md-4" id="start_date">
                                             <div class="form-group">
-                                                <label>{{ trans('file.Promotion Starts') }}</label>
+                                                <label><?php echo e(trans('file.Promotion Starts')); ?></label>
                                                 <div class="input-group">
                                                     <div class="input-group-prepend">
                                                         <div class="input-group-text"><i class="dripicons-calendar"></i>
@@ -294,7 +296,7 @@
                                         </div>
                                         <div class="col-md-4" id="last_date">
                                             <div class="form-group">
-                                                <label>{{ trans('file.Promotion Ends') }}</label>
+                                                <label><?php echo e(trans('file.Promotion Ends')); ?></label>
                                                 <div class="input-group">
                                                     <div class="input-group-prepend">
                                                         <div class="input-group-text"><i class="dripicons-calendar"></i>
@@ -324,13 +326,13 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    @foreach ($lims_product_inventory as $inventory_item)
+                                                    <?php $__currentLoopData = $lims_product_inventory; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $inventory_item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                                     <tr>
                                                         <td></td>
-                                                        <td>{{$inventory_item->name}}</td>
-                                                        <td>{{$inventory_item->price}}</td>
+                                                        <td><?php echo e($inventory_item->name); ?></td>
+                                                        <td><?php echo e($inventory_item->price); ?></td>
                                                     </tr>
-                                                    @endforeach
+                                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                                 </tbody>
                                             </table>
                                         </div>
@@ -338,7 +340,7 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <input type="button" value="{{ trans('file.submit') }}" id="submit-btn" class="btn btn-primary">
+                                <input type="button" value="<?php echo e(trans('file.submit')); ?>" id="submit-btn" class="btn btn-primary">
                             </div>
                         </form>
                     </div>
@@ -437,11 +439,11 @@
         }
     });
     <?php $productArray = []; ?>
-    var lims_product_code = [ @foreach($lims_product_list as $product)
+    var lims_product_code = [ <?php $__currentLoopData = $lims_product_list; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $product): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
         <?php
             $productArray[] = htmlspecialchars($product->code . ' [ ' . $product->name . ' ]');
         ?>
-         @endforeach
+         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
             <?php
                 echo  '"'.implode('","', $productArray).'"';
             ?> ];
@@ -719,7 +721,7 @@
         paramName: 'image',
         clickable: true,
         method: 'POST',
-        url: '{{route('products.store')}}',
+        url: '<?php echo e(route('products.store')); ?>',
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
@@ -741,7 +743,7 @@
                     else {
                         $.ajax({
                             type:'POST',
-                            url:'{{route('products.store')}}',
+                            url:'<?php echo e(route('products.store')); ?>',
                             data: $("#product-form").serialize(),
                             success:function(response){
                                 //console.log(response);
@@ -816,4 +818,6 @@
         }
     });
 </script>
-@endsection
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('layout.main', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH D:\xampp\htdocs\salonapi\resources\views/product/create.blade.php ENDPATH**/ ?>

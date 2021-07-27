@@ -983,6 +983,7 @@ class SaleController extends Controller
 
     public function getProductByFilter($category_id, $brand_id)
     {
+        $dealandservice = ['Deal', 'Service'];
         $data = [];
         if(($category_id != 0) && ($brand_id != 0)){
             $lims_product_list = DB::table('products')
@@ -992,27 +993,28 @@ class SaleController extends Controller
                                     ['products.category_id', $category_id],
                                     ['brand_id', $brand_id],
                                     ['products.type', 'Deal'],
-                                    
+
                                 ])->orWhere([
                                     ['categories.parent_id', $category_id],
                                     ['products.is_active', true],
                                     ['brand_id', $brand_id],
-                                    
+
                                     ['products.type', 'Service']
                                 ])->select('products.name', 'products.code', 'products.image')->get();
         }
-        
+
         elseif(($category_id != 0) && ($brand_id == 0)){
             $lims_product_list = DB::table('products')
                                 ->join('categories', 'products.category_id', '=', 'categories.id')
+                                ->whereIn('type', $dealandservice)
                                 ->where([
                                     ['products.is_active', true],
                                     ['products.category_id', $category_id],
-                                    ['products.type', 'Deal'],
+                                    // ['products.type', 'Service'],
                                 ])->orWhere([
                                     ['categories.parent_id', $category_id],
                                     ['products.is_active', true],
-                                    ['products.type', 'Service']
+                                    // ['products.type', 'Service']
                                 ])->select('products.id', 'products.name', 'products.code', 'products.image', 'products.is_variant')->get();
         }
         elseif(($category_id == 0) && ($brand_id != 0)){
@@ -1047,6 +1049,7 @@ class SaleController extends Controller
             }
         }
         return $data;
+        // dd($data);
         // dd($lims_product_list);
     }
 
