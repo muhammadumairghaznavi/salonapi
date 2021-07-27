@@ -11,6 +11,7 @@ use App\Tax;
 use App\Warehouse;
 use App\Supplier;
 use App\Product;
+use App\Material;
 use App\ProductBatch;
 use App\Product_Warehouse;
 use App\Product_Supplier;
@@ -25,8 +26,18 @@ use App\ProductVariant;
 
 class ProductController extends Controller
 {
+    public $material = [];
+
+    function __construct(){
+        $this->material=[
+            Material::all()
+        ];
+    }
+
+
     public function index()
     {
+        $material = $this->material;
         //http://jsfiddle.net/Godinall/Pn8HZ/
         $role = Role::find(Auth::user()->role_id);
         if($role->hasPermissionTo('products-index')){
@@ -205,17 +216,19 @@ class ProductController extends Controller
 
     public function create()
     {
+        $material = $this->material;
         $role = Role::firstOrCreate(['id' => Auth::user()->role_id]);
         if ($role->hasPermissionTo('products-add')){
+            // $material = $this->material;
             $lims_product_list = Product::where([ ['is_active', true], ['type', 'standard'] ])->get();
             $lims_brand_list = Brand::where('is_active', true)->get();
             $lims_category_list = Category::where('is_active', true)->get();
             $lims_unit_list = Unit::where('is_active', true)->get();
             $lims_tax_list = Tax::where('is_active', true)->get();
             $lims_warehouse_list = Warehouse::where('is_active', true)->get();
-            $lims_product_inventory = Product::where([['is_active', true], ['type', 'Inventory']])->get();
+
             // dd($lims_product_inventory);
-            return view('product.create',compact('lims_product_list', 'lims_brand_list', 'lims_category_list', 'lims_unit_list', 'lims_tax_list', 'lims_warehouse_list', 'lims_product_inventory'));
+            return view('product.create',compact('lims_product_list', 'lims_brand_list', 'lims_category_list', 'lims_unit_list', 'lims_tax_list', 'lims_warehouse_list', 'material'));
         }
         else
             return redirect()->back()->with('not_permitted', 'Sorry! You are not allowed to access this module');
@@ -270,7 +283,16 @@ class ProductController extends Controller
         }
 
 
+        // exit($data);
+
         $lims_product_data = Product::create($data);
+        $lims_material_data = Material::create($data);
+
+        $material  = $request->input('material');
+        $arr = $material;
+
+        $lims_product_data->materials()->sync($arr);
+
         //dealing with product variant
         if(!isset($data['is_batch']))
             $data['is_batch'] = null;
@@ -301,7 +323,9 @@ class ProductController extends Controller
                 }
             }
         }
+
         \Session::flash('create_message', 'Product created successfully');
+
     }
 
     public function edit($id)

@@ -308,7 +308,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-4 mt-3">
+                                <div class="col-md-4 mt-3" >
                                     <input name="material_used" type="checkbox" id="material_used" value="1">&nbsp;
                                     <label>
                                         <h5>Material Used</h5>
@@ -326,11 +326,12 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <?php $__currentLoopData = $lims_product_inventory; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $inventory_item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+
+                                                    <?php $__currentLoopData = $material[0]; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                                     <tr>
-                                                        <td></td>
-                                                        <td><?php echo e($inventory_item->name); ?></td>
-                                                        <td><?php echo e($inventory_item->price); ?></td>
+                                                        <td><label><?php echo e(Form::checkbox('material[]', $item->id, false, ['class' => 'name'])); ?></label></td>
+                                                        <td><?php echo e($item->name); ?></td>
+                                                        <td><?php echo e($item->price); ?></td>
                                                     </tr>
                                                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                                 </tbody>
@@ -351,6 +352,8 @@
 </section>
 
 <script type="text/javascript">
+
+    $("#digital").hide();
     $("ul#product").siblings('a').attr('aria-expanded','true');
     $("ul#product").addClass("show");
     $("ul#product #product-create-menu").addClass("active");
@@ -401,6 +404,7 @@
             $(".form-control").css("border-color", "");
             $("#brand-sec").show(300);
             $("#alert-qty").show(300);
+            $("#diffPrice-option").show(300);
             // $("input[name='cost']").prop('required',false);
             // $("select[name='unit_id']").prop('required',false);
             // hide();
@@ -417,6 +421,7 @@
             $(".form-control").css("border-color", "");
             $("#brand-sec").hide(300);
             $("#alert-qty").hide(300);
+            $("#diffPrice-option").hide(300);
             // $("input[name='cost']").prop('required',false);
             // $("select[name='unit_id']").prop('required',false);
             // $("input[name='file']").prop('required',true);

@@ -15,4 +15,8 @@ class Category extends Model
     {
     	return $this->hasMany('App\Product');
     }
+    public function material()
+    {
+    	return $this->hasMany('App\Material');
+    }
 }

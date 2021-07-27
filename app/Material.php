@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Product extends Model
+class Material extends Model
 {
     protected $fillable =[
 
@@ -21,14 +21,15 @@ class Product extends Model
     	return $this->belongsTo('App\Brand');
     }
 
+    public function products(){
+        return $this->belongsToMany('App\Product', 'product_has_materials', 'material_id', 'product_id')->withTimestamps();
+    }
+
     public function unit()
     {
         return $this->belongsTo('App\Unit');
     }
 
-    public function materials(){
-        return $this->belongsToMany('App\Material', 'product_has_materials', 'product_id', 'material_id')->withTimestamps();
-    }
     public function variant()
     {
         return $this->belongsToMany('App\Variant', 'product_variants')->withPivot('id', 'item_code', 'additional_price');

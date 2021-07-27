@@ -14,6 +14,11 @@ class Brand extends Model
     public function product()
     {
     	return $this->hasMany('App/Product');
-    	
+
+    }
+    public function material()
+    {
+    	return $this->hasMany('App/Material');
+
     }
 }

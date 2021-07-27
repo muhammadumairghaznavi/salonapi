@@ -4,10 +4,10 @@
     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button><?php echo e($errors->first('phone_number')); ?></div>
 <?php endif; ?>
 <?php if(session()->has('message')): ?>
-    <div class="alert alert-success alert-dismissible text-center"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button><?php echo session()->get('message'); ?></div> 
+    <div class="alert alert-success alert-dismissible text-center"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button><?php echo session()->get('message'); ?></div>
 <?php endif; ?>
 <?php if(session()->has('not_permitted')): ?>
-  <div class="alert alert-danger alert-dismissible text-center"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button><?php echo e(session()->get('not_permitted')); ?></div> 
+  <div class="alert alert-danger alert-dismissible text-center"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button><?php echo e(session()->get('not_permitted')); ?></div>
 <?php endif; ?>
 <!-- Side Navbar -->
 <nav class="side-navbar shrink">
@@ -15,7 +15,7 @@
       <!-- Sidebar Header    -->
       <!-- Sidebar Navigation Menus-->
       <div class="main-menu">
-        <ul id="side-main-menu" class="side-menu list-unstyled">                  
+        <ul id="side-main-menu" class="side-menu list-unstyled">
           <li><a href="<?php echo e(url('/')); ?>"> <i class="dripicons-meter"></i><span><?php echo e(__('file.dashboard')); ?></span></a></li>
           <?php
             $role = DB::table('roles')->find(Auth::user()->role_id);
@@ -43,13 +43,13 @@
                     ['role_id', $role->id]
                 ])->first();
           ?>
-          
+
           <li><a href="#product" aria-expanded="false" data-toggle="collapse"> <i class="dripicons-list"></i><span><?php echo e(__('file.product')); ?></span><span></a>
             <ul id="product" class="collapse list-unstyled ">
               <li id="category-menu"><a href="<?php echo e(route('category.index')); ?>"><?php echo e(__('file.category')); ?></a></li>
               <?php if($index_permission_active): ?>
               <li id="product-list-menu"><a href="<?php echo e(route('products.index')); ?>"><?php echo e(__('file.product_list')); ?></a></li>
-              <?php 
+              <?php
                 $add_permission = DB::table('permissions')->where('name', 'products-add')->first();
                 $add_permission_active = DB::table('role_has_permissions')->where([
                     ['permission_id', $add_permission->id],
@@ -72,7 +72,7 @@
               <?php endif; ?>
             </ul>
           </li>
-          <?php 
+          <?php
             $index_permission = DB::table('permissions')->where('name', 'purchases-index')->first();
               $index_permission_active = DB::table('role_has_permissions')->where([
                     ['permission_id', $index_permission->id],
@@ -83,7 +83,7 @@
           <li><a href="#purchase" aria-expanded="false" data-toggle="collapse"> <i class="dripicons-card"></i><span><?php echo e(trans('file.Purchase')); ?></span></a>
             <ul id="purchase" class="collapse list-unstyled ">
               <li id="purchase-list-menu"><a href="<?php echo e(route('purchases.index')); ?>"><?php echo e(trans('file.Purchase List')); ?></a></li>
-              <?php 
+              <?php
                 $add_permission = DB::table('permissions')->where('name', 'purchases-add')->first();
                 $add_permission_active = DB::table('role_has_permissions')->where([
                     ['permission_id', $add_permission->id],
@@ -97,7 +97,7 @@
             </ul>
           </li>
           <?php endif; ?>
-          <?php 
+          <?php
             $index_permission = DB::table('permissions')->where('name', 'sales-index')->first();
             $index_permission_active = DB::table('role_has_permissions')->where([
                     ['permission_id', $index_permission->id],
@@ -116,12 +116,12 @@
                     ['role_id', $role->id]
                 ])->first();
           ?>
-          
+
           <li><a href="#sale" aria-expanded="false" data-toggle="collapse"> <i class="dripicons-cart"></i><span><?php echo e(trans('file.Sale')); ?></span></a>
             <ul id="sale" class="collapse list-unstyled ">
               <?php if($index_permission_active): ?>
               <li id="sale-list-menu"><a href="<?php echo e(route('sales.index')); ?>"><?php echo e(trans('file.Sale List')); ?></a></li>
-              <?php 
+              <?php
                 $add_permission = DB::table('permissions')->where('name', 'sales-add')->first();
                 $add_permission_active = DB::table('role_has_permissions')->where([
                     ['permission_id', $add_permission->id],
@@ -143,7 +143,7 @@
               <li id="delivery-menu"><a href="<?php echo e(route('delivery.index')); ?>"><?php echo e(trans('file.Delivery List')); ?></a></li>
             </ul>
           </li>
-          <?php 
+          <?php
             $index_permission = DB::table('permissions')->where('name', 'expenses-index')->first();
             $index_permission_active = DB::table('role_has_permissions')->where([
                     ['permission_id', $index_permission->id],
@@ -155,7 +155,7 @@
             <ul id="expense" class="collapse list-unstyled ">
               <li id="exp-cat-menu"><a href="<?php echo e(route('expense_categories.index')); ?>"><?php echo e(trans('file.Expense Category')); ?></a></li>
               <li id="exp-list-menu"><a href="<?php echo e(route('expenses.index')); ?>"><?php echo e(trans('file.Expense List')); ?></a></li>
-              <?php 
+              <?php
                 $add_permission = DB::table('permissions')->where('name', 'expenses-add')->first();
                 $add_permission_active = DB::table('role_has_permissions')->where([
                     ['permission_id', $add_permission->id],
@@ -168,7 +168,7 @@
             </ul>
           </li>
           <?php endif; ?>
-          <?php 
+          <?php
             $index_permission = DB::table('permissions')->where('name', 'quotes-index')->first();
             $index_permission_active = DB::table('role_has_permissions')->where([
                     ['permission_id', $index_permission->id],
@@ -179,7 +179,7 @@
           <li><a href="#quotation" aria-expanded="false" data-toggle="collapse"> <i class="dripicons-document"></i><span><?php echo e(trans('file.Quotation')); ?></span><span></a>
             <ul id="quotation" class="collapse list-unstyled ">
               <li id="quotation-list-menu"><a href="<?php echo e(route('quotations.index')); ?>"><?php echo e(trans('file.Quotation List')); ?></a></li>
-              <?php 
+              <?php
                 $add_permission = DB::table('permissions')->where('name', 'quotes-add')->first();
                 $add_permission_active = DB::table('role_has_permissions')->where([
                     ['permission_id', $add_permission->id],
@@ -192,7 +192,7 @@
             </ul>
           </li>
           <?php endif; ?>
-          <?php 
+          <?php
             $index_permission = DB::table('permissions')->where('name', 'transfers-index')->first();
             $index_permission_active = DB::table('role_has_permissions')->where([
                     ['permission_id', $index_permission->id],
@@ -203,7 +203,7 @@
           <li><a href="#transfer" aria-expanded="false" data-toggle="collapse"> <i class="dripicons-export"></i><span><?php echo e(trans('file.Transfer')); ?></span></a>
             <ul id="transfer" class="collapse list-unstyled ">
               <li id="transfer-list-menu"><a href="<?php echo e(route('transfers.index')); ?>"><?php echo e(trans('file.Transfer List')); ?></a></li>
-              <?php 
+              <?php
                 $add_permission = DB::table('permissions')->where('name', 'transfers-add')->first();
                 $add_permission_active = DB::table('role_has_permissions')->where([
                     ['permission_id', $add_permission->id],
@@ -217,10 +217,10 @@
             </ul>
           </li>
           <?php endif; ?>
-          
+
           <li><a href="#return" aria-expanded="false" data-toggle="collapse"> <i class="dripicons-return"></i><span><?php echo e(trans('file.return')); ?></span></a>
             <ul id="return" class="collapse list-unstyled ">
-              <?php 
+              <?php
                 $index_permission = DB::table('permissions')->where('name', 'returns-index')->first();
                 $index_permission_active = DB::table('role_has_permissions')->where([
                         ['permission_id', $index_permission->id],
@@ -230,7 +230,7 @@
               <?php if($index_permission_active): ?>
               <li id="sale-return-menu"><a href="<?php echo e(route('return-sale.index')); ?>"><?php echo e(trans('file.Sale')); ?></a></li>
               <?php endif; ?>
-              <?php 
+              <?php
                 $index_permission = DB::table('permissions')->where('name', 'purchase-return-index')->first();
                 $index_permission_active = DB::table('role_has_permissions')->where([
                         ['permission_id', $index_permission->id],
@@ -242,7 +242,7 @@
               <?php endif; ?>
             </ul>
           </li>
-          <?php 
+          <?php
             $index_permission = DB::table('permissions')->where('name', 'account-index')->first();
             $index_permission_active = DB::table('role_has_permissions')->where([
                     ['permission_id', $index_permission->id],
@@ -287,7 +287,7 @@
             </ul>
           </li>
           <?php endif; ?>
-          <?php 
+          <?php
             $department = DB::table('permissions')->where('name', 'department')->first();
             $department_active = DB::table('role_has_permissions')->where([
                     ['permission_id', $department->id],
@@ -309,7 +309,7 @@
                     ['role_id', $role->id]
                 ])->first();
           ?>
-          
+
           <li class=""><a href="#hrm" aria-expanded="false" data-toggle="collapse"> <i class="dripicons-user-group"></i><span>HRM</span></a>
             <ul id="hrm" class="collapse list-unstyled ">
               <?php if($department_active): ?>
@@ -327,7 +327,7 @@
               <li id="holiday-menu"><a href="<?php echo e(route('holidays.index')); ?>"><?php echo e(trans('file.Holiday')); ?></a></li>
             </ul>
           </li>
-          
+
           <li><a href="#people" aria-expanded="false" data-toggle="collapse"> <i class="dripicons-user"></i><span><?php echo e(trans('file.People')); ?></span></a>
             <ul id="people" class="collapse list-unstyled ">
               <?php $index_permission_active = DB::table('permissions')
@@ -348,7 +348,7 @@
               <li id="user-create-menu"><a href="<?php echo e(route('user.create')); ?>"><?php echo e(trans('file.Add User')); ?></a></li>
               <?php endif; ?>
               <?php endif; ?>
-              <?php 
+              <?php
                 $index_permission = DB::table('permissions')->where('name', 'customers-index')->first();
                 $index_permission_active = DB::table('role_has_permissions')->where([
                         ['permission_id', $index_permission->id],
@@ -357,7 +357,7 @@
               ?>
               <?php if($index_permission_active): ?>
               <li id="customer-list-menu"><a href="<?php echo e(route('customer.index')); ?>"><?php echo e(trans('file.Customer List')); ?></a></li>
-              <?php 
+              <?php
                 $add_permission = DB::table('permissions')->where('name', 'customers-add')->first();
                 $add_permission_active = DB::table('role_has_permissions')->where([
                     ['permission_id', $add_permission->id],
@@ -368,7 +368,7 @@
               <li id="customer-create-menu"><a href="<?php echo e(route('customer.create')); ?>"><?php echo e(trans('file.Add Customer')); ?></a></li>
               <?php endif; ?>
               <?php endif; ?>
-              <?php 
+              <?php
                 $index_permission = DB::table('permissions')->where('name', 'billers-index')->first();
                 $index_permission_active = DB::table('role_has_permissions')->where([
                         ['permission_id', $index_permission->id],
@@ -377,7 +377,7 @@
               ?>
               <?php if($index_permission_active): ?>
               <li id="biller-list-menu"><a href="<?php echo e(route('biller.index')); ?>"><?php echo e(trans('file.Biller List')); ?></a></li>
-              <?php 
+              <?php
                 $add_permission = DB::table('permissions')->where('name', 'billers-add')->first();
                 $add_permission_active = DB::table('role_has_permissions')->where([
                     ['permission_id', $add_permission->id],
@@ -388,7 +388,7 @@
               <li id="biller-create-menu"><a href="<?php echo e(route('biller.create')); ?>"><?php echo e(trans('file.Add Biller')); ?></a></li>
               <?php endif; ?>
               <?php endif; ?>
-              <?php 
+              <?php
                 $index_permission = DB::table('permissions')->where('name', 'suppliers-index')->first();
                 $index_permission_active = DB::table('role_has_permissions')->where([
                         ['permission_id', $index_permission->id],
@@ -397,7 +397,7 @@
               ?>
               <?php if($index_permission_active): ?>
               <li id="supplier-list-menu"><a href="<?php echo e(route('supplier.index')); ?>"><?php echo e(trans('file.Supplier List')); ?></a></li>
-              <?php 
+              <?php
                 $add_permission = DB::table('permissions')->where('name', 'suppliers-add')->first();
                 $add_permission_active = DB::table('role_has_permissions')->where([
                     ['permission_id', $add_permission->id],
@@ -491,7 +491,7 @@
               $supplier_report_active = DB::table('permissions')
                     ->join('role_has_permissions', 'permissions.id', '=', 'role_has_permissions.permission_id')
                     ->where([
-                      ['permissions.name', 'supplier-report'], 
+                      ['permissions.name', 'supplier-report'],
                       ['role_id', $role->id] ])->first();
               $due_report_active = DB::table('permissions')
                     ->join('role_has_permissions', 'permissions.id', '=', 'role_has_permissions.permission_id')
@@ -916,27 +916,19 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>                        
+                        </div>
                     </div>
                     <div class="payment-amount">
                         <h2><?php echo e(trans('file.grand total')); ?> <span id="grand-total">0.00</span></h2>
                     </div>
                     <div class="payment-options">
-                        <div class="column-5">
-                            <button style="background: #0984e3" type="button" class="btn btn-custom payment-btn" data-toggle="modal" data-target="#add-payment" id="credit-card-btn"><i class="fa fa-credit-card"></i> Card</button>   
-                        </div>
+
                         <div class="column-5">
                             <button style="background: #00cec9" type="button" class="btn btn-custom payment-btn" data-toggle="modal" data-target="#add-payment" id="cash-btn"><i class="fa fa-money"></i> Cash</button>
                         </div>
-                        <div class="column-5">
-                            <button style="background-color: #213170" type="button" class="btn btn-custom payment-btn" data-toggle="modal" data-target="#add-payment" id="paypal-btn"><i class="fa fa-paypal"></i> Paypal</button>
-                        </div>
-                        <div class="column-5">
-                            <button style="background-color: #e28d02" type="button" class="btn btn-custom" id="draft-btn"><i class="dripicons-flag"></i> Draft</button>
-                        </div>
-                        <div class="column-5">
-                            <button style="background-color: #fd7272" type="button" class="btn btn-custom payment-btn" data-toggle="modal" data-target="#add-payment" id="cheque-btn"><i class="fa fa-money"></i> Cheque</button>
-                        </div>
+
+
+
                         <div class="column-5">
                             <button style="background-color: #5f27cd" type="button" class="btn btn-custom payment-btn" data-toggle="modal" data-target="#add-payment" id="gift-card-btn"><i class="fa fa-credit-card-alt"></i> GiftCard</button>
                         </div>
@@ -982,9 +974,7 @@
                                             <select name="paid_by_id_select" class="form-control selectpicker">
                                                 <option value="1">Cash</option>
                                                 <option value="2">Gift Card</option>
-                                                <option value="3">Credit Card</option>
-                                                <option value="4">Cheque</option>
-                                                <option value="5">Paypal</option>
+
                                                 <option value="6">Deposit</option>
                                             </select>
                                         </div>
@@ -1110,7 +1100,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <?php echo Form::close(); ?>
 
             <!-- product list -->
@@ -1122,10 +1112,10 @@
                         <div class="navbar-holder d-flex align-items-center justify-content-between">
                           <a id="toggle-btn" href="#" class="menu-btn"><i class="fa fa-bars"> </i></a>
                           <div class="navbar-header">
-                          
+
                           <ul class="nav-menu list-unstyled d-flex flex-md-row align-items-md-center">
-                            <li class="nav-item"><a id="btnFullscreen" title="Full Screen"><i class="dripicons-expand"></i></a></li> 
-                            <?php 
+                            <li class="nav-item"><a id="btnFullscreen" title="Full Screen"><i class="dripicons-expand"></i></a></li>
+                            <?php
                                 $general_setting_permission = DB::table('permissions')->where('name', 'general_setting')->first();
                                 $general_setting_permission_active = DB::table('role_has_permissions')->where([
                                             ['permission_id', $general_setting_permission->id],
@@ -1190,25 +1180,25 @@
                                   </ul>
                             </li>
                             <?php endif; ?>
-                            <li class="nav-item"> 
+                            <li class="nav-item">
                                 <a class="dropdown-item" href="<?php echo e(url('read_me')); ?>" target="_blank"><i class="dripicons-information"></i> <?php echo e(trans('file.Help')); ?></a>
                             </li>&nbsp;
                             <li class="nav-item">
                                   <a rel="nofollow" data-target="#" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-item"><i class="dripicons-user"></i> <span><?php echo e(ucfirst(Auth::user()->name)); ?></span> <i class="fa fa-angle-down"></i>
                                   </a>
                                   <ul class="dropdown-menu edit-options dropdown-menu-right dropdown-default" user="menu">
-                                      <li> 
+                                      <li>
                                         <a href="<?php echo e(route('user.profile', ['id' => Auth::id()])); ?>"><i class="dripicons-user"></i> <?php echo e(trans('file.profile')); ?></a>
                                       </li>
                                       <?php if($general_setting_permission_active): ?>
-                                      <li> 
+                                      <li>
                                         <a href="<?php echo e(route('setting.general')); ?>"><i class="dripicons-gear"></i> <?php echo e(trans('file.settings')); ?></a>
                                       </li>
                                       <?php endif; ?>
-                                      <li> 
+                                      <li>
                                         <a href="<?php echo e(url('my-transactions/'.date('Y').'/'.date('m'))); ?>"><i class="dripicons-swap"></i> <?php echo e(trans('file.My Transaction')); ?></a>
                                       </li>
-                                      <li> 
+                                      <li>
                                         <a href="<?php echo e(url('holidays/my-holiday/'.date('Y').'/'.date('m'))); ?>"><i class="dripicons-vibrate"></i> <?php echo e(trans('file.My Holiday')); ?></a>
                                       </li>
                                       <li>
@@ -1223,7 +1213,7 @@
                                         </form>
                                       </li>
                                   </ul>
-                            </li> 
+                            </li>
                           </ul>
                         </div>
                       </div>
@@ -1435,7 +1425,7 @@
                             <input type="text" name="city" required class="form-control">
                         </div>
                         <div class="form-group">
-                        <input type="hidden" name="pos" value="1">      
+                        <input type="hidden" name="pos" value="1">
                           <input type="submit" value="<?php echo e(trans('file.submit')); ?>" class="btn btn-primary">
                         </div>
                     </div>
@@ -1612,14 +1602,7 @@
                                           <td><?php echo e(trans('file.Cash Payment')); ?>:</td>
                                           <td id="cash_payment" class="text-right"></td>
                                         </tr>
-                                        <tr>
-                                          <td><?php echo e(trans('file.Credit Card Payment')); ?>:</td>
-                                          <td id="credit_card_payment" class="text-right"></td>
-                                        </tr>
-                                        <tr>
-                                          <td><?php echo e(trans('file.Cheque Payment')); ?>:</td>
-                                          <td id="cheque_payment" class="text-right"></td>
-                                        </tr>
+
                                         <tr>
                                           <td><?php echo e(trans('file.Gift Card Payment')); ?>:</td>
                                           <td id="gift_card_payment" class="text-right"></td>
@@ -1628,10 +1611,7 @@
                                           <td><?php echo e(trans('file.Deposit Payment')); ?>:</td>
                                           <td id="deposit_payment" class="text-right"></td>
                                         </tr>
-                                        <tr>
-                                          <td><?php echo e(trans('file.Paypal Payment')); ?>:</td>
-                                          <td id="paypal_payment" class="text-right"></td>
-                                        </tr>
+
                                         <tr>
                                           <td><?php echo e(trans('file.Total Sale Return')); ?>:</td>
                                           <td id="total_sale_return" class="text-right"></td>
@@ -1681,14 +1661,7 @@
                                           <td><?php echo e(trans('file.Cash Payment')); ?>:</td>
                                           <td class="cash_payment text-right"></td>
                                         </tr>
-                                        <tr>
-                                          <td><?php echo e(trans('file.Credit Card Payment')); ?>:</td>
-                                          <td class="credit_card_payment text-right"></td>
-                                        </tr>
-                                        <tr>
-                                          <td><?php echo e(trans('file.Cheque Payment')); ?>:</td>
-                                          <td class="cheque_payment text-right"></td>
-                                        </tr>
+
                                         <tr>
                                           <td><?php echo e(trans('file.Gift Card Payment')); ?>:</td>
                                           <td class="gift_card_payment text-right"></td>
@@ -1697,10 +1670,7 @@
                                           <td><?php echo e(trans('file.Deposit Payment')); ?>:</td>
                                           <td class="deposit_payment text-right"></td>
                                         </tr>
-                                        <tr>
-                                          <td><?php echo e(trans('file.Paypal Payment')); ?>:</td>
-                                          <td class="paypal_payment text-right"></td>
-                                        </tr>
+
                                         <tr>
                                           <td><?php echo e(trans('file.Total Payment')); ?>:</td>
                                           <td class="total_payment text-right"></td>
@@ -1845,7 +1815,7 @@ $("#reference-no").val(getSavedValue("reference-no"));
 $("#order-discount").val(getSavedValue("order-discount"));
 $("#order-tax-rate-select").val(getSavedValue("order-tax-rate-select"));
 
-    
+
 $("#shipping-cost-val").val(getSavedValue("shipping-cost-val"));
 
 if(localStorage.getItem("tbody-id")) {
@@ -1857,10 +1827,10 @@ function saveValue(e) {
     var val = e.value; // get the value.
     localStorage.setItem(id, val);// Every time user writing something, the localStorage's value will override.
 }
-//get the saved value function - return the value of "v" from localStorage. 
+//get the saved value function - return the value of "v" from localStorage.
 function getSavedValue  (v) {
     if (!localStorage.getItem(v)) {
-        return "";// You can change this to your defualt value. 
+        return "";// You can change this to your defualt value.
     }
     return localStorage.getItem(v);
 }
@@ -1976,7 +1946,7 @@ if(keyboard_active==1){
         },
         change: function(e, keyboard) {
                 keyboard.$el.val(keyboard.$preview.val())
-                keyboard.$el.trigger('propertychange')        
+                keyboard.$el.trigger('propertychange')
               }
     });
 
@@ -2001,7 +1971,7 @@ if(keyboard_active==1){
         },
         change: function(e, keyboard) {
                 keyboard.$el.val(keyboard.$preview.val())
-                keyboard.$el.trigger('propertychange')        
+                keyboard.$el.trigger('propertychange')
               }
     });
 
@@ -2033,11 +2003,8 @@ if(keyboard_active==1){
               $('#register-details-modal #total_sale_amount').text(data['total_sale_amount']);
               $('#register-details-modal #total_payment').text(data['total_payment']);
               $('#register-details-modal #cash_payment').text(data['cash_payment']);
-              $('#register-details-modal #credit_card_payment').text(data['credit_card_payment']);
-              $('#register-details-modal #cheque_payment').text(data['cheque_payment']);
               $('#register-details-modal #gift_card_payment').text(data['gift_card_payment']);
               $('#register-details-modal #deposit_payment').text(data['deposit_payment']);
-              $('#register-details-modal #paypal_payment').text(data['paypal_payment']);
               $('#register-details-modal #total_sale_return').text(data['total_sale_return']);
               $('#register-details-modal #total_expense').text(data['total_expense']);
               $('#register-details-modal #total_cash').text(data['total_cash']);
@@ -2056,11 +2023,8 @@ if(keyboard_active==1){
               $('#today-sale-modal .total_sale_amount').text(data['total_sale_amount']);
               $('#today-sale-modal .total_payment').text(data['total_payment']);
               $('#today-sale-modal .cash_payment').text(data['cash_payment']);
-              $('#today-sale-modal .credit_card_payment').text(data['credit_card_payment']);
-              $('#today-sale-modal .cheque_payment').text(data['cheque_payment']);
               $('#today-sale-modal .gift_card_payment').text(data['gift_card_payment']);
               $('#today-sale-modal .deposit_payment').text(data['deposit_payment']);
-              $('#today-sale-modal .paypal_payment').text(data['paypal_payment']);
               $('#today-sale-modal .total_sale_return').text(data['total_sale_return']);
               $('#today-sale-modal .total_expense').text(data['total_expense']);
               $('#today-sale-modal .total_cash').text(data['total_cash']);
@@ -2478,7 +2442,7 @@ $("table.order-list tbody").on("click", ".ibtnDel", function(event) {
     localStorageTempUnitName.splice(rowindex, 1);
     localStorageSaleUnitOperator.splice(rowindex, 1);
     localStorageSaleUnitOperationValue.splice(rowindex, 1);
-    
+
     localStorage.setItem("localStorageProductId", localStorageProductId);
     localStorage.setItem("localStorageQty", localStorageQty);
     localStorage.setItem("localStorageSaleUnit", localStorageSaleUnit);
@@ -2522,7 +2486,7 @@ $('button[name="update_btn"]').on("click", function() {
         edit_qty = 1;
         alert("Quantity can't be less than 1");
     }
-    
+
     var tax_rate_all = <?php echo json_encode($tax_rate_all) ?>;
 
     tax_rate[rowindex] = localStorageTaxRate[rowindex] = parseFloat(tax_rate_all[$('select[name="edit_tax_rate"]').val()]);
@@ -2635,12 +2599,7 @@ $("#cash-btn").on("click",function() {
     hide();
 });
 
-$("#paypal-btn").on("click",function() {
-    $('select[name="paid_by_id_select"]').val(5);
-    $('.selectpicker').selectpicker('refresh');
-    $('div.qc').hide();
-    hide();
-});
+
 
 $("#deposit-btn").on("click",function() {
     $('select[name="paid_by_id_select"]').val(6);
@@ -2650,7 +2609,7 @@ $("#deposit-btn").on("click",function() {
     deposits();
 });
 
-$('select[name="paid_by_id_select"]').on("change", function() {       
+$('select[name="paid_by_id_select"]').on("change", function() {
     var id = $(this).val();
     $(".payment-form").off("submit");
     if(id == 2) {
@@ -2826,7 +2785,7 @@ function addNewProduct(data){
         $("table.order-list tbody").prepend(newRow);
 
     rowindex = newRow.index();
-    
+
     if(!data[11] && product_warehouse_price[pos]) {
         product_price.splice(rowindex, 0, parseFloat(product_warehouse_price[pos] * currency['exchange_rate']) + parseFloat(product_warehouse_price[pos] * currency['exchange_rate'] * customer_group_rate));
     }
@@ -2858,7 +2817,7 @@ function addNewProduct(data){
     localStorageTaxValue.splice(rowindex, 0, '0.00');
     localStorageSubTotalUnit.splice(rowindex, 0, '0.00');
     localStorageSubTotal.splice(rowindex, 0, '0.00');
-    
+
     localStorage.setItem("localStorageProductId", localStorageProductId);
     localStorage.setItem("localStorageSaleUnit", localStorageSaleUnit);
     localStorage.setItem("localStorageProductCode", localStorageProductCode);
@@ -3041,12 +3000,12 @@ function calculateRowProductData(quantity) {
         var net_unit_price = row_product_price - product_discount[rowindex];
         var tax = net_unit_price * quantity * (tax_rate[rowindex] / 100);
         var sub_total = (net_unit_price * quantity) + tax;
-        
+
         if(parseFloat(quantity))
             var sub_total_unit = sub_total / quantity;
         else
             var sub_total_unit = sub_total;
-    } 
+    }
     else {
         var sub_total_unit = row_product_price - product_discount[rowindex];
         var net_unit_price = (100 / (100 + tax_rate[rowindex])) * sub_total_unit;

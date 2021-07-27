@@ -12,4 +12,8 @@ class Variant extends Model
     {
     	return $this->belongsToMany('App\Variant', 'product_variants');
     }
+    public function material()
+    {
+    	return $this->belongsToMany('App\Material', 'product_variants');
+    }
 }

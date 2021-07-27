@@ -306,7 +306,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-4 mt-3">
+                                <div class="col-md-4 mt-3" >
                                     <input name="material_used" type="checkbox" id="material_used" value="1">&nbsp;
                                     <label>
                                         <h5>Material Used</h5>
@@ -324,11 +324,12 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    @foreach ($lims_product_inventory as $inventory_item)
+
+                                                    @foreach ($material[0] as $item)
                                                     <tr>
-                                                        <td></td>
-                                                        <td>{{$inventory_item->name}}</td>
-                                                        <td>{{$inventory_item->price}}</td>
+                                                        <td><label>{{Form::checkbox('material[]', $item->id, false, ['class' => 'name'])}}</label></td>
+                                                        <td>{{$item->name}}</td>
+                                                        <td>{{$item->price}}</td>
                                                     </tr>
                                                     @endforeach
                                                 </tbody>
@@ -349,6 +350,8 @@
 </section>
 
 <script type="text/javascript">
+
+    $("#digital").hide();
     $("ul#product").siblings('a').attr('aria-expanded','true');
     $("ul#product").addClass("show");
     $("ul#product #product-create-menu").addClass("active");
@@ -399,6 +402,7 @@
             $(".form-control").css("border-color", "");
             $("#brand-sec").show(300);
             $("#alert-qty").show(300);
+            $("#diffPrice-option").show(300);
             // $("input[name='cost']").prop('required',false);
             // $("select[name='unit_id']").prop('required',false);
             // hide();
@@ -415,6 +419,7 @@
             $(".form-control").css("border-color", "");
             $("#brand-sec").hide(300);
             $("#alert-qty").hide(300);
+            $("#diffPrice-option").hide(300);
             // $("input[name='cost']").prop('required',false);
             // $("select[name='unit_id']").prop('required',false);
             // $("input[name='file']").prop('required',true);
