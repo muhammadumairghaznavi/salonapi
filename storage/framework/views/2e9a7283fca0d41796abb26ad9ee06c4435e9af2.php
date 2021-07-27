@@ -92,18 +92,7 @@
                                         </table>
                                     </div>
                                 </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label class="help-text"></strong> </label> <label for="">Brand *</label>
-                                        <div class="input-group">
-                                            <select name="brand_id" class="selectpicker form-control" data-live-search="true" data-live-search-style="begins" title="Select Brand...">
-                                                <?php $__currentLoopData = $lims_brand_list; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $brand): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                                <option value="<?php echo e($brand->id); ?>"><?php echo e($brand->title); ?></option>
-                                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
+
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label class="help-text"> </strong> </label> <label for="">Category *</label>
@@ -174,6 +163,18 @@
                                     </div>
                                     <div class="form-group">
                                         <input type="hidden" name="qty" value="0.00">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group" id="brand-sec">
+                                        <label class="help-text"></strong> </label> <label for="">Brand *</label>
+                                        <div class="input-group">
+                                            <select name="brand_id" class="selectpicker form-control" data-live-search="true" data-live-search-style="begins" title="Select Brand...">
+                                                <?php $__currentLoopData = $lims_brand_list; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $brand): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                                <option value="<?php echo e($brand->id); ?>"><?php echo e($brand->title); ?></option>
+                                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                            </select>
+                                        </div>
                                     </div>
                                 </div>
 
@@ -270,7 +271,7 @@
                                         </table>
                                     </div>
                                 </div>
-                                <div class="col-md-4 mt-3">
+                                <div class="col-md-4 mt-3" id="promotion-sec">
                                     <input name="promotion" type="checkbox" id="promotion" value="1">&nbsp;
                                     <label>
                                         <h5> <?php echo e(trans('file.Add Promotional Price')); ?></h5>
@@ -361,6 +362,8 @@
     $("#variant-section").hide();
     $("#diffPrice-section").hide();
     $("#promotion_price").hide();
+    $("#brand-sec").show(300);
+    $("#unit").show(300);
     $("#start_date").hide();
     $("#last_date").hide();
     $("#material_table").hide();
@@ -390,9 +393,15 @@
     $('select[name="type"]').on('change', function() {
         if($(this).val() == 'select'){
             $(".help-text").html('');
+            $("#unit").show(300);
+            $(".form-control").css("border-color", "red");
         }
         else if($(this).val() == 'Inventory'){
             $(".help-text").html('Product');
+            $("#unit").show(300);
+            $(".form-control").css("border-color", "");
+            $("#brand-sec").show(300);
+            $("#alert-qty").show(300);
             // $("input[name='cost']").prop('required',false);
             // $("select[name='unit_id']").prop('required',false);
             // hide();
@@ -402,30 +411,41 @@
             // $("#is-diffPrice").prop("checked", false);
             // $("#variant-section, #variant-option, #diffPrice-option, #diffPrice-section").hide(300);
         }
-        else if($(this).val() == 'digital'){
-            $("input[name='cost']").prop('required',false);
-            $("select[name='unit_id']").prop('required',false);
-            $("input[name='file']").prop('required',true);
-            hide();
-            $("#digital").show(300);
-            $("#combo").hide(300);
-            $("input[name='price']").prop('disabled',false);
-            $("#is-variant").prop("checked", false);
-            $("#is-diffPrice").prop("checked", false);
-            $("#variant-section, #variant-option, #diffPrice-option, #diffPrice-section").hide(300);
+        else if($(this).val() == 'Deal'){
+            $(".help-text").html('Deal');
+            $("#diffPrice-option").hide(300);
+            $("#unit").hide(300);
+            $(".form-control").css("border-color", "");
+            $("#brand-sec").hide(300);
+            $("#alert-qty").hide(300);
+            // $("input[name='cost']").prop('required',false);
+            // $("select[name='unit_id']").prop('required',false);
+            // $("input[name='file']").prop('required',true);
+            // hide();
+            // $("#digital").show(300);
+            // $("#combo").hide(300);
+            // $("input[name='price']").prop('disabled',false);
+            // $("#is-variant").prop("checked", false);
+            // $("#is-diffPrice").prop("checked", false);
+            // $("#variant-section, #variant-option, #diffPrice-option, #diffPrice-section").hide(300);
         }
-        else if($(this).val() == 'standard'){
-            $("input[name='cost']").prop('required',true);
-            $("select[name='unit_id']").prop('required',true);
-            $("input[name='file']").prop('required',false);
-            $("#cost").show(300);
-            $("#unit").show(300);
-            $("#alert-qty").show(300);
-            $("#variant-option").show(300);
-            $("#diffPrice-option").show(300);
-            $("#digital").hide(300);
-            $("#combo").hide(300);
-            $("input[name='price']").prop('disabled',false);
+        else if($(this).val() == 'Service'){
+            $(".help-text").html('Service');
+            $("#unit").hide(300);
+            $(".form-control").css("border-color", "");
+            $("#alert-qty").hide(300);
+            $("#brand-sec").hide(300);
+            // $("input[name='cost']").prop('required',true);
+            // $("select[name='unit_id']").prop('required',true);
+            // $("input[name='file']").prop('required',false);
+            // $("#cost").show(300);
+            // $("#unit").show(300);
+            // $("#alert-qty").show(300);
+            // $("#variant-option").show(300);
+            // $("#diffPrice-option").show(300);
+            $("#diffPrice-option").hide(300);
+            // $("#combo").hide(300);
+            // $("input[name='price']").prop('disabled',false);
         }
     });
     $('select[name="unit_id"]').on('change', function() {
