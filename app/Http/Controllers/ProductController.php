@@ -268,6 +268,8 @@ class ProductController extends Controller
             $file->move('public/product/files', $fileName);
             $data['file'] = $fileName;
         }
+
+
         $lims_product_data = Product::create($data);
         //dealing with product variant
         if(!isset($data['is_batch']))
@@ -323,10 +325,7 @@ class ProductController extends Controller
 
     public function updateProduct(Request $request)
     {
-        if(!env('USER_VERIFIED')) {
-            \Session::flash('not_permitted', 'This feature is disable for demo!');
-        }
-        else {
+
             $this->validate($request, [
                 'name' => [
                     'max:255',
@@ -468,7 +467,7 @@ class ProductController extends Controller
             }
             $lims_product_data->update($data);
             \Session::flash('edit_message', 'Product updated successfully');
-        }
+
     }
 
     public function generateCode()

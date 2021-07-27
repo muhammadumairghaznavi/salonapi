@@ -35,7 +35,6 @@ class Product extends Model
     {
         return $query->where([
             ['is_active', true],
-            ['type', 'standard']
         ]);
     }
 

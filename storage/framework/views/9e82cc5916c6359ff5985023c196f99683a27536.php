@@ -17,11 +17,12 @@
                                         <label><?php echo e(trans('file.Product Type')); ?> *</strong> </label>
                                         <div class="input-group">
                                             <select name="type" required class="form-control selectpicker" id="type">
-                                                <option value="standard">Standard</option>
-                                                <option value="combo">Combo</option>
-                                                <option value="digital">Digital</option>
+
+                                                <option value="select">Select</option>
+                                                <option value="Inventory">Inventory</option>
+                                                <option value="Deal">Deal</option>
+                                                <option value="Service">Service</option>
                                             </select>
-                                            <input type="hidden" name="type_hidden" value="<?php echo e($lims_product_data->type); ?>">
                                         </div>
                                     </div>
                                 </div>
@@ -152,7 +153,7 @@
                                         <div class="col-md-4">
                                                 <label><?php echo e(trans('file.Sale Unit')); ?></strong> </label>
                                                 <div class="input-group">
-                                                  <select class="form-control selectpicker" name="sale_unit_id" id="sale-unit"> 
+                                                  <select class="form-control selectpicker" name="sale_unit_id" id="sale-unit">
                                                   </select>
                                                   <input type="hidden" name="sale_unit" value="<?php echo e($lims_product_data->sale_unit_id); ?>">
                                               </div>
@@ -161,13 +162,13 @@
                                                 <div class="form-group">
                                                     <label><?php echo e(trans('file.Purchase Unit')); ?></strong> </label>
                                                     <div class="input-group">
-                                                      <select class="form-control selectpicker" name="purchase_unit_id"> 
+                                                      <select class="form-control selectpicker" name="purchase_unit_id">
                                                       </select>
                                                       <input type="hidden" name="purchase_unit" value="<?php echo e($lims_product_data->purchase_unit_id); ?>">
                                                   </div>
                                                 </div>
-                                        </div>                                
-                                    </div>                                
+                                        </div>
+                                    </div>
                                 </div>
                                 <div id="cost" class="col-md-4">
                                     <div class="form-group">
@@ -257,7 +258,7 @@
                                         </table>
                                     </div>
                                 </div>
-                                <div class="col-md-12"> 
+                                <div class="col-md-12">
                                     <div class="form-group">
                                         <label><?php echo e(trans('file.Product Details')); ?></label>
                                         <textarea name="product_details" class="form-control" rows="5"><?php echo e(str_replace('@', '"', $lims_product_data->product_details)); ?></textarea>
@@ -286,7 +287,7 @@
 
                                                     </td>
                                                     <td>
-                                                        <?php 
+                                                        <?php
                                                             $product_warehouse = \App\Product_Warehouse::FindProductWithoutVariant($lims_product_data->id, $warehouse->id)->first();
                                                         ?>
                                                         <?php if($product_warehouse): ?>
@@ -355,7 +356,7 @@
                                     <input name="promotion" type="checkbox" id="promotion" value="1">&nbsp;
                                     <label><h5><?php echo e(trans('file.Add Promotional Price')); ?></h5></label>
                                 </div>
-                                
+
                                 <div class="col-md-12">
                                     <div class="row">
                                         <div class="col-md-4" id="promotion_price">   <label><?php echo e(trans('file.Promotional Price')); ?></label>
@@ -529,10 +530,10 @@
         unitID = $(this).val();
         if(unitID) {
             populate_unit_second(unitID);
-        }else{    
+        }else{
             $('select[name="sale_unit_id"]').empty();
             $('select[name="purchase_unit_id"]').empty();
-        }                        
+        }
     });
 
     var lims_product_code = [ <?php $__currentLoopData = $lims_product_list; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $product): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
@@ -724,7 +725,7 @@
             $("#promotion_price").show();
             $("#start_date").show();
             $("#last_date").show();
-        } 
+        }
         else {
             $("#promotion_price").hide();
             $("#start_date").hide();
@@ -817,7 +818,7 @@
         stop: function () {
           var queue = myDropzone.getAcceptedFiles();
           newQueue = [];
-          $('#imageUpload .dz-preview .dz-filename [data-dz-name]').each(function (count, el) {           
+          $('#imageUpload .dz-preview .dz-filename [data-dz-name]').each(function (count, el) {
                 var name = el.innerHTML;
                 queue.forEach(function(file) {
                     if (file.name === name) {

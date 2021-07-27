@@ -1,50 +1,51 @@
-@extends('layout.main') @section('content')
-    @if (session()->has('message'))
+ <?php $__env->startSection('content'); ?>
+    <?php if(session()->has('message')): ?>
         <div class="alert alert-success alert-dismissible text-center"><button type="button" class="close"
                 data-dismiss="alert" aria-label="Close"><span
-                    aria-hidden="true">&times;</span></button>{{ session()->get('message') }}</div>
-    @endif
-    @if (session()->has('not_permitted'))
+                    aria-hidden="true">&times;</span></button><?php echo e(session()->get('message')); ?></div>
+    <?php endif; ?>
+    <?php if(session()->has('not_permitted')): ?>
         <div class="alert alert-danger alert-dismissible text-center"><button type="button" class="close"
                 data-dismiss="alert" aria-label="Close"><span
-                    aria-hidden="true">&times;</span></button>{{ session()->get('not_permitted') }}</div>
-    @endif
+                    aria-hidden="true">&times;</span></button><?php echo e(session()->get('not_permitted')); ?></div>
+    <?php endif; ?>
 
     <section>
         <div class="container-fluid">
             <div class="card">
                 <div class="card-header mt-2">
-                    <h3 class="text-center">{{ trans('file.Purchase List') }}</h3>
+                    <h3 class="text-center"><?php echo e(trans('file.Purchase List')); ?></h3>
                 </div>
-                {!! Form::open(['route' => 'purchases.index', 'method' => 'get']) !!}
+                <?php echo Form::open(['route' => 'purchases.index', 'method' => 'get']); ?>
+
                 <div class="row mb-3">
                     <div class="col-md-4 offset-md-2 mt-3">
                         <div class="form-group row">
-                            <label class="d-tc mt-2"><strong>{{ trans('file.Choose Your Date') }}</strong> &nbsp;</label>
+                            <label class="d-tc mt-2"><strong><?php echo e(trans('file.Choose Your Date')); ?></strong> &nbsp;</label>
                             <div class="d-tc">
                                 <div class="input-group">
                                     <input type="text" class="daterangepicker-field form-control"
-                                        value="{{ $starting_date }} To {{ $ending_date }}" required />
-                                    <input type="hidden" name="starting_date" value="{{ $starting_date }}" />
-                                    <input type="hidden" name="ending_date" value="{{ $ending_date }}" />
+                                        value="<?php echo e($starting_date); ?> To <?php echo e($ending_date); ?>" required />
+                                    <input type="hidden" name="starting_date" value="<?php echo e($starting_date); ?>" />
+                                    <input type="hidden" name="ending_date" value="<?php echo e($ending_date); ?>" />
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-4 mt-3 @if (\Auth::user()->role_id > 2) {{ 'd-none' }} @endif">
+                    <div class="col-md-4 mt-3 <?php if(\Auth::user()->role_id > 2): ?> <?php echo e('d-none'); ?> <?php endif; ?>">
                         <div class="form-group row">
-                            <label class="d-tc mt-2"><strong>{{ trans('file.Choose Warehouse') }}</strong> &nbsp;</label>
+                            <label class="d-tc mt-2"><strong><?php echo e(trans('file.Choose Warehouse')); ?></strong> &nbsp;</label>
                             <div class="d-tc">
                                 <select id="warehouse_id" name="warehouse_id" class="selectpicker form-control"
                                     data-live-search="true" data-live-search-style="begins">
-                                    <option value="0">{{ trans('file.All Warehouse') }}</option>
-                                    @foreach ($lims_warehouse_list as $warehouse)
-                                        @if ($warehouse->id == $warehouse_id)
-                                            <option selected value="{{ $warehouse->id }}">{{ $warehouse->name }}</option>
-                                        @else
-                                            <option value="{{ $warehouse->id }}">{{ $warehouse->name }}</option>
-                                        @endif
-                                    @endforeach
+                                    <option value="0"><?php echo e(trans('file.All Warehouse')); ?></option>
+                                    <?php $__currentLoopData = $lims_warehouse_list; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $warehouse): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                        <?php if($warehouse->id == $warehouse_id): ?>
+                                            <option selected value="<?php echo e($warehouse->id); ?>"><?php echo e($warehouse->name); ?></option>
+                                        <?php else: ?>
+                                            <option value="<?php echo e($warehouse->id); ?>"><?php echo e($warehouse->name); ?></option>
+                                        <?php endif; ?>
+                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                 </select>
                             </div>
                         </div>
@@ -52,39 +53,40 @@
                     <div class="col-md-2 mt-3">
                         <div class="form-group">
                             <button class="btn btn-primary" id="filter-btn"
-                                type="submit">{{ trans('file.submit') }}</button>
+                                type="submit"><?php echo e(trans('file.submit')); ?></button>
                         </div>
                     </div>
                 </div>
-                {!! Form::close() !!}
+                <?php echo Form::close(); ?>
+
             </div>
-            @if (in_array('purchases-add', $all_permission))
-                <a href="{{ route('purchases.create') }}" class="btn btn-info"><i class="dripicons-plus"></i>
-                    {{ trans('file.Add Purchase') }}</a>&nbsp;
-                <a href="{{ url('purchases/purchase_by_csv') }}" class="btn btn-primary"><i class="dripicons-copy"></i>
-                    {{ trans('file.Import Purchase') }}</a>
-            @endif
+            <?php if(in_array('purchases-add', $all_permission)): ?>
+                <a href="<?php echo e(route('purchases.create')); ?>" class="btn btn-info"><i class="dripicons-plus"></i>
+                    <?php echo e(trans('file.Add Purchase')); ?></a>&nbsp;
+                <a href="<?php echo e(url('purchases/purchase_by_csv')); ?>" class="btn btn-primary"><i class="dripicons-copy"></i>
+                    <?php echo e(trans('file.Import Purchase')); ?></a>
+            <?php endif; ?>
         </div>
         <div class="table-responsive">
             <table id="purchase-table" class="table purchase-list" style="width: 100%">
                 <thead>
                     <tr>
                         <th class="not-exported"></th>
-                        <th>{{ trans('file.Date') }}</th>
-                        <th>{{ trans('file.reference') }}</th>
-                        <th>{{ trans('file.Supplier') }}</th>
-                        <th>{{ trans('file.Purchase Status') }}</th>
-                        <th>{{ trans('file.grand total') }}</th>
-                        <th>{{ trans('file.Paid') }}</th>
-                        <th>{{ trans('file.Due') }}</th>
-                        <th>{{ trans('file.Payment Status') }}</th>
-                        <th class="not-exported">{{ trans('file.action') }}</th>
+                        <th><?php echo e(trans('file.Date')); ?></th>
+                        <th><?php echo e(trans('file.reference')); ?></th>
+                        <th><?php echo e(trans('file.Supplier')); ?></th>
+                        <th><?php echo e(trans('file.Purchase Status')); ?></th>
+                        <th><?php echo e(trans('file.grand total')); ?></th>
+                        <th><?php echo e(trans('file.Paid')); ?></th>
+                        <th><?php echo e(trans('file.Due')); ?></th>
+                        <th><?php echo e(trans('file.Payment Status')); ?></th>
+                        <th class="not-exported"><?php echo e(trans('file.action')); ?></th>
                     </tr>
                 </thead>
 
                 <tfoot class="tfoot active">
                     <th></th>
-                    <th>{{ trans('file.Total') }}</th>
+                    <th><?php echo e(trans('file.Total')); ?></th>
                     <th></th>
                     <th></th>
                     <th></th>
@@ -106,11 +108,11 @@
                     <div class="row">
                         <div class="col-md-3">
                             <button id="print-btn" type="button" class="btn btn-default btn-sm d-print-none"><i
-                                    class="dripicons-print"></i> {{ trans('file.Print') }}</button>
+                                    class="dripicons-print"></i> <?php echo e(trans('file.Print')); ?></button>
                         </div>
                         <div class="col-md-6">
                             <h3 id="exampleModalLabel" class="modal-title text-center container-fluid">
-                                {{ $general_setting->site_title }}</h3>
+                                <?php echo e($general_setting->site_title); ?></h3>
                         </div>
                         <div class="col-md-3">
                             <button type="button" id="close-btn" data-dismiss="modal" aria-label="Close"
@@ -118,7 +120,7 @@
                                         class="dripicons-cross"></i></span></button>
                         </div>
                         <div class="col-md-12 text-center">
-                            <i style="font-size: 15px;">{{ trans('file.Purchase Details') }}</i>
+                            <i style="font-size: 15px;"><?php echo e(trans('file.Purchase Details')); ?></i>
                         </div>
                     </div>
                 </div>
@@ -127,13 +129,13 @@
                 <table class="table table-bordered product-purchase-list">
                     <thead>
                         <th>#</th>
-                        <th>{{ trans('file.product') }}</th>
-                        <th>{{ trans('file.Batch No') }}</th>
+                        <th><?php echo e(trans('file.product')); ?></th>
+                        <th><?php echo e(trans('file.Batch No')); ?></th>
                         <th>Qty</th>
-                        <th>{{ trans('file.Unit Cost') }}</th>
-                        <th>{{ trans('file.Tax') }}</th>
-                        <th>{{ trans('file.Discount') }}</th>
-                        <th>{{ trans('file.Subtotal') }}</th>
+                        <th><?php echo e(trans('file.Unit Cost')); ?></th>
+                        <th><?php echo e(trans('file.Tax')); ?></th>
+                        <th><?php echo e(trans('file.Discount')); ?></th>
+                        <th><?php echo e(trans('file.Subtotal')); ?></th>
                     </thead>
                     <tbody>
                     </tbody>
@@ -148,7 +150,7 @@
         <div role="document" class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 id="exampleModalLabel" class="modal-title">{{ trans('file.All Payment') }}</h5>
+                    <h5 id="exampleModalLabel" class="modal-title"><?php echo e(trans('file.All Payment')); ?></h5>
                     <button type="button" data-dismiss="modal" aria-label="Close" class="close"><span aria-hidden="true"><i
                                 class="dripicons-cross"></i></span></button>
                 </div>
@@ -156,12 +158,12 @@
                     <table class="table table-hover payment-list">
                         <thead>
                             <tr>
-                                <th>{{ trans('file.date') }}</th>
-                                <th>{{ trans('file.Reference No') }}</th>
-                                <th>{{ trans('file.Account') }}</th>
-                                <th>{{ trans('file.Amount') }}</th>
-                                <th>{{ trans('file.Paid By') }}</th>
-                                <th>{{ trans('file.action') }}</th>
+                                <th><?php echo e(trans('file.date')); ?></th>
+                                <th><?php echo e(trans('file.Reference No')); ?></th>
+                                <th><?php echo e(trans('file.Account')); ?></th>
+                                <th><?php echo e(trans('file.Amount')); ?></th>
+                                <th><?php echo e(trans('file.Paid By')); ?></th>
+                                <th><?php echo e(trans('file.action')); ?></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -177,28 +179,29 @@
         <div role="document" class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 id="exampleModalLabel" class="modal-title">{{ trans('file.Add Payment') }}</h5>
+                    <h5 id="exampleModalLabel" class="modal-title"><?php echo e(trans('file.Add Payment')); ?></h5>
                     <button type="button" data-dismiss="modal" aria-label="Close" class="close"><span aria-hidden="true"><i
                                 class="dripicons-cross"></i></span></button>
                 </div>
                 <div class="modal-body">
-                    {!! Form::open(['route' => 'purchase.add-payment', 'method' => 'post', 'class' => 'payment-form']) !!}
+                    <?php echo Form::open(['route' => 'purchase.add-payment', 'method' => 'post', 'class' => 'payment-form']); ?>
+
                     <div class="row">
                         <input type="hidden" name="balance">
                         <div class="col-md-6">
-                            <label>{{ trans('file.Recieved Amount') }} *</label>
+                            <label><?php echo e(trans('file.Recieved Amount')); ?> *</label>
                             <input type="text" name="paying_amount" class="form-control numkey" step="any" required>
                         </div>
                         <div class="col-md-6">
-                            <label>{{ trans('file.Paying Amount') }} *</label>
+                            <label><?php echo e(trans('file.Paying Amount')); ?> *</label>
                             <input type="text" id="amount" name="amount" class="form-control" step="any" required>
                         </div>
                         <div class="col-md-6 mt-1">
-                            <label>{{ trans('file.Change') }} : </label>
+                            <label><?php echo e(trans('file.Change')); ?> : </label>
                             <p class="change ml-2">0.00</p>
                         </div>
                         <div class="col-md-6 mt-1">
-                            <label>{{ trans('file.Paid By') }}</label>
+                            <label><?php echo e(trans('file.Paid By')); ?></label>
                             <select name="paid_by_id" class="form-control">
                                 <option value="1">Cash</option>
                                 <option value="3">Credit Card</option>
@@ -213,33 +216,35 @@
                     </div>
                     <div id="cheque">
                         <div class="form-group">
-                            <label>{{ trans('file.Cheque Number') }} *</label>
+                            <label><?php echo e(trans('file.Cheque Number')); ?> *</label>
                             <input type="text" name="cheque_no" class="form-control">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label> {{ trans('file.Account') }}</label>
+                        <label> <?php echo e(trans('file.Account')); ?></label>
                         <select class="form-control selectpicker" name="account_id">
-                            @foreach ($lims_account_list as $account)
-                                @if ($account->is_default)
-                                    <option selected value="{{ $account->id }}">{{ $account->name }}
-                                        [{{ $account->account_no }}]</option>
-                                @else
-                                    <option value="{{ $account->id }}">{{ $account->name }} [{{ $account->account_no }}]
+                            <?php $__currentLoopData = $lims_account_list; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $account): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <?php if($account->is_default): ?>
+                                    <option selected value="<?php echo e($account->id); ?>"><?php echo e($account->name); ?>
+
+                                        [<?php echo e($account->account_no); ?>]</option>
+                                <?php else: ?>
+                                    <option value="<?php echo e($account->id); ?>"><?php echo e($account->name); ?> [<?php echo e($account->account_no); ?>]
                                     </option>
-                                @endif
-                            @endforeach
+                                <?php endif; ?>
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                         </select>
                     </div>
                     <div class="form-group">
-                        <label>{{ trans('file.Payment Note') }}</label>
+                        <label><?php echo e(trans('file.Payment Note')); ?></label>
                         <textarea rows="3" class="form-control" name="payment_note"></textarea>
                     </div>
 
                     <input type="hidden" name="purchase_id">
 
-                    <button type="submit" class="btn btn-primary">{{ trans('file.submit') }}</button>
-                    {{ Form::close() }}
+                    <button type="submit" class="btn btn-primary"><?php echo e(trans('file.submit')); ?></button>
+                    <?php echo e(Form::close()); ?>
+
                 </div>
             </div>
         </div>
@@ -250,27 +255,28 @@
         <div role="document" class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 id="exampleModalLabel" class="modal-title">{{ trans('file.Update Payment') }}</h5>
+                    <h5 id="exampleModalLabel" class="modal-title"><?php echo e(trans('file.Update Payment')); ?></h5>
                     <button type="button" data-dismiss="modal" aria-label="Close" class="close"><span aria-hidden="true"><i
                                 class="dripicons-cross"></i></span></button>
                 </div>
                 <div class="modal-body">
-                    {!! Form::open(['route' => 'purchase.update-payment', 'method' => 'post', 'class' => 'payment-form']) !!}
+                    <?php echo Form::open(['route' => 'purchase.update-payment', 'method' => 'post', 'class' => 'payment-form']); ?>
+
                     <div class="row">
                         <div class="col-md-6">
-                            <label>{{ trans('file.Recieved Amount') }} *</label>
+                            <label><?php echo e(trans('file.Recieved Amount')); ?> *</label>
                             <input type="text" name="edit_paying_amount" class="form-control numkey" step="any" required>
                         </div>
                         <div class="col-md-6">
-                            <label>{{ trans('file.Paying Amount') }} *</label>
+                            <label><?php echo e(trans('file.Paying Amount')); ?> *</label>
                             <input type="text" name="edit_amount" class="form-control" step="any" required>
                         </div>
                         <div class="col-md-6 mt-1">
-                            <label>{{ trans('file.Change') }} : </label>
+                            <label><?php echo e(trans('file.Change')); ?> : </label>
                             <p class="change ml-2">0.00</p>
                         </div>
                         <div class="col-md-6 mt-1">
-                            <label>{{ trans('file.Paid By') }}</label>
+                            <label><?php echo e(trans('file.Paid By')); ?></label>
                             <select name="edit_paid_by_id" class="form-control selectpicker">
                                 <option value="1">Cash</option>
                                 <option value="3">Credit Card</option>
@@ -285,28 +291,29 @@
                     </div>
                     <div id="edit-cheque">
                         <div class="form-group">
-                            <label>{{ trans('file.Cheque Number') }} *</label>
+                            <label><?php echo e(trans('file.Cheque Number')); ?> *</label>
                             <input type="text" name="edit_cheque_no" class="form-control">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label> {{ trans('file.Account') }}</label>
+                        <label> <?php echo e(trans('file.Account')); ?></label>
                         <select class="form-control selectpicker" name="account_id">
-                            @foreach ($lims_account_list as $account)
-                                <option value="{{ $account->id }}">{{ $account->name }} [{{ $account->account_no }}]
+                            <?php $__currentLoopData = $lims_account_list; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $account): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <option value="<?php echo e($account->id); ?>"><?php echo e($account->name); ?> [<?php echo e($account->account_no); ?>]
                                 </option>
-                            @endforeach
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                         </select>
                     </div>
                     <div class="form-group">
-                        <label>{{ trans('file.Payment Note') }}</label>
+                        <label><?php echo e(trans('file.Payment Note')); ?></label>
                         <textarea rows="3" class="form-control" name="edit_payment_note"></textarea>
                     </div>
 
                     <input type="hidden" name="payment_id">
 
-                    <button type="submit" class="btn btn-primary">{{ trans('file.update') }}</button>
-                    {{ Form::close() }}
+                    <button type="submit" class="btn btn-primary"><?php echo e(trans('file.update')); ?></button>
+                    <?php echo e(Form::close()); ?>
+
                 </div>
             </div>
         </div>
@@ -371,7 +378,7 @@
             var newWin = window.open('', 'Print-Window');
             newWin.document.open();
             newWin.document.write(
-                '<link rel="stylesheet" href="<?php echo asset('public/vendor/bootstrap/css/bootstrap.min.css'); ?>" type="text/css"><style type="text/css">@media print {.modal-dialog { max-width: 1000px;} }</style><body onload="window.print()">' +
+                '<link rel="stylesheet" href="<?php echo asset('public/vendor/bootstrap/css/bootstrap.min.css'); ?>" type="text/css"><style type="text/css">@media  print {.modal-dialog { max-width: 1000px;} }</style><body onload="window.print()">' +
                 divToPrint.innerHTML + '</body>');
             newWin.document.close();
             setTimeout(function() {
@@ -423,9 +430,9 @@
                     cols +=
                         '<td><div class="btn-group"><button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Action<span class="caret"></span><span class="sr-only">Toggle Dropdown</span></button><ul class="dropdown-menu edit-options dropdown-menu-right dropdown-default" user="menu"><li><button type="button" class="btn btn-link edit-btn" data-id="' +
                         payment_id[index] +
-                        '" data-clicked=false data-toggle="modal" data-target="#edit-payment"><i class="dripicons-document-edit"></i> Edit</button></li><li class="divider"></li>{{ Form::open(['route' => 'purchase.delete-payment', 'method' => 'post']) }}<li><input type="hidden" name="id" value="' +
+                        '" data-clicked=false data-toggle="modal" data-target="#edit-payment"><i class="dripicons-document-edit"></i> Edit</button></li><li class="divider"></li><?php echo e(Form::open(['route' => 'purchase.delete-payment', 'method' => 'post'])); ?><li><input type="hidden" name="id" value="' +
                         payment_id[index] +
-                        '" /> <button type="submit" class="btn btn-link" onclick="return confirmDeletePayment()"><i class="dripicons-trash"></i> Delete</button></li>{{ Form::close() }}</ul></div></td>'
+                        '" /> <button type="submit" class="btn btn-link" onclick="return confirmDeletePayment()"><i class="dripicons-trash"></i> Delete</button></li><?php echo e(Form::close()); ?></ul></div></td>'
                     newRow.append(cols);
                     newBody.append(newRow);
                     $("table.payment-list").append(newBody);
@@ -594,10 +601,10 @@
                     },
                 ],
                 'language': {
-                    /*'searchPlaceholder': "{{ trans('file.Type date or purchase reference...') }}",*/
-                    'lengthMenu': '_MENU_ {{ trans('file.records per page') }}',
-                    "info": '<small>{{ trans('file.Showing') }} _START_ - _END_ (_TOTAL_)</small>',
-                    "search": '{{ trans('file.Search') }}',
+                    /*'searchPlaceholder': "<?php echo e(trans('file.Type date or purchase reference...')); ?>",*/
+                    'lengthMenu': '_MENU_ <?php echo e(trans('file.records per page')); ?>',
+                    "info": '<small><?php echo e(trans('file.Showing')); ?> _START_ - _END_ (_TOTAL_)</small>',
+                    "search": '<?php echo e(trans('file.Search')); ?>',
                     'paginate': {
                         'previous': '<i class="dripicons-chevron-left"></i>',
                         'next': '<i class="dripicons-chevron-right"></i>'
@@ -637,7 +644,7 @@
                 dom: '<"row"lfB>rtip',
                 buttons: [{
                         extend: 'pdf',
-                        text: '{{ trans('file.PDF') }}',
+                        text: '<?php echo e(trans('file.PDF')); ?>',
                         exportOptions: {
                             columns: ':visible:Not(.not-exported)',
                             rows: ':visible'
@@ -651,7 +658,7 @@
                     },
                     {
                         extend: 'csv',
-                        text: '{{ trans('file.CSV') }}',
+                        text: '<?php echo e(trans('file.CSV')); ?>',
                         exportOptions: {
                             columns: ':visible:not(.not-exported)',
                             rows: ':visible'
@@ -665,7 +672,7 @@
                     },
                     {
                         extend: 'print',
-                        text: '{{ trans('file.Print') }}',
+                        text: '<?php echo e(trans('file.Print')); ?>',
                         exportOptions: {
                             columns: ':visible:not(.not-exported)',
                             rows: ':visible'
@@ -678,7 +685,7 @@
                         footer: true
                     },
                     {
-                        text: '{{ trans('file.delete') }}',
+                        text: '<?php echo e(trans('file.delete')); ?>',
                         className: 'buttons-delete',
                         action: function(e, dt, node, config) {
 
@@ -712,7 +719,7 @@
                     },
                     {
                         extend: 'colvis',
-                        text: '{{ trans('file.Column visibility') }}',
+                        text: '<?php echo e(trans('file.Column visibility')); ?>',
                         columns: ':gt(0)'
                     },
                 ],
@@ -751,12 +758,12 @@
         }
 
         function purchaseDetails(purchase) {
-            var htmltext = '<strong>{{ trans('file.Date') }}: </strong>' + purchase[0] +
-                '<br><strong>{{ trans('file.reference') }}: </strong>' + purchase[1] +
-                '<br><strong>{{ trans('file.Purchase Status') }}: </strong>' + purchase[2] +
-                '<br><br><div class="row"><div class="col-md-6"><strong>{{ trans('file.From') }}:</strong><br>' + purchase[
+            var htmltext = '<strong><?php echo e(trans('file.Date')); ?>: </strong>' + purchase[0] +
+                '<br><strong><?php echo e(trans('file.reference')); ?>: </strong>' + purchase[1] +
+                '<br><strong><?php echo e(trans('file.Purchase Status')); ?>: </strong>' + purchase[2] +
+                '<br><br><div class="row"><div class="col-md-6"><strong><?php echo e(trans('file.From')); ?>:</strong><br>' + purchase[
                     4] + '<br>' + purchase[5] + '<br>' + purchase[6] +
-                '</div><div class="col-md-6"><div class="float-right"><strong>{{ trans('file.To') }}:</strong><br>' +
+                '</div><div class="col-md-6"><div class="float-right"><strong><?php echo e(trans('file.To')); ?>:</strong><br>' +
                 purchase[7] + '<br>' + purchase[8] + '<br>' + purchase[9] + '<br>' + purchase[10] + '<br>' + purchase[11] +
                 '<br>' + purchase[12] + '</div></div></div>';
 
@@ -788,7 +795,7 @@
 
                 var newRow = $("<tr>");
                 cols = '';
-                cols += '<td colspan=5><strong>{{ trans('file.Total') }}:</strong></td>';
+                cols += '<td colspan=5><strong><?php echo e(trans('file.Total')); ?>:</strong></td>';
                 cols += '<td>' + purchase[13] + '</td>';
                 cols += '<td>' + purchase[14] + '</td>';
                 cols += '<td>' + purchase[15] + '</td>';
@@ -797,42 +804,42 @@
 
                 var newRow = $("<tr>");
                 cols = '';
-                cols += '<td colspan=7><strong>{{ trans('file.Order Tax') }}:</strong></td>';
+                cols += '<td colspan=7><strong><?php echo e(trans('file.Order Tax')); ?>:</strong></td>';
                 cols += '<td>' + purchase[16] + '(' + purchase[17] + '%)' + '</td>';
                 newRow.append(cols);
                 newBody.append(newRow);
 
                 var newRow = $("<tr>");
                 cols = '';
-                cols += '<td colspan=7><strong>{{ trans('file.Order Discount') }}:</strong></td>';
+                cols += '<td colspan=7><strong><?php echo e(trans('file.Order Discount')); ?>:</strong></td>';
                 cols += '<td>' + purchase[18] + '</td>';
                 newRow.append(cols);
                 newBody.append(newRow);
 
                 var newRow = $("<tr>");
                 cols = '';
-                cols += '<td colspan=7><strong>{{ trans('file.Shipping Cost') }}:</strong></td>';
+                cols += '<td colspan=7><strong><?php echo e(trans('file.Shipping Cost')); ?>:</strong></td>';
                 cols += '<td>' + purchase[19] + '</td>';
                 newRow.append(cols);
                 newBody.append(newRow);
 
                 var newRow = $("<tr>");
                 cols = '';
-                cols += '<td colspan=7><strong>{{ trans('file.grand total') }}:</strong></td>';
+                cols += '<td colspan=7><strong><?php echo e(trans('file.grand total')); ?>:</strong></td>';
                 cols += '<td>' + purchase[20] + '</td>';
                 newRow.append(cols);
                 newBody.append(newRow);
 
                 var newRow = $("<tr>");
                 cols = '';
-                cols += '<td colspan=7><strong>{{ trans('file.Paid Amount') }}:</strong></td>';
+                cols += '<td colspan=7><strong><?php echo e(trans('file.Paid Amount')); ?>:</strong></td>';
                 cols += '<td>' + purchase[21] + '</td>';
                 newRow.append(cols);
                 newBody.append(newRow);
 
                 var newRow = $("<tr>");
                 cols = '';
-                cols += '<td colspan=7><strong>{{ trans('file.Due') }}:</strong></td>';
+                cols += '<td colspan=7><strong><?php echo e(trans('file.Due')); ?>:</strong></td>';
                 cols += '<td>' + (purchase[20] - purchase[21]) + '</td>';
                 newRow.append(cols);
                 newBody.append(newRow);
@@ -840,8 +847,8 @@
                 $("table.product-purchase-list").append(newBody);
             });
 
-            var htmlfooter = '<p><strong>{{ trans('file.Note') }}:</strong> ' + purchase[22] +
-                '</p><strong>{{ trans('file.Created By') }}:</strong><br>' + purchase[23] + '<br>' + purchase[24];
+            var htmlfooter = '<p><strong><?php echo e(trans('file.Note')); ?>:</strong> ' + purchase[22] +
+                '</p><strong><?php echo e(trans('file.Created By')); ?>:</strong><br>' + purchase[23] + '<br>' + purchase[24];
 
             $('#purchase-content').html(htmltext);
             $('#purchase-footer').html(htmlfooter);
@@ -870,7 +877,9 @@
         if (all_permission.indexOf("purchases-delete") == -1)
             $('.buttons-delete').addClass('d-none');
     </script>
-    @endsection @section('scripts')
+    <?php $__env->stopSection(); ?> <?php $__env->startSection('scripts'); ?>
     <script type="text/javascript" src="https://js.stripe.com/v3/"></script>
 
-@endsection
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('layout.main', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH D:\xampp\htdocs\salonapi\resources\views/purchase/index.blade.php ENDPATH**/ ?>

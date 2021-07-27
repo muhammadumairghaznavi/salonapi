@@ -21,7 +21,6 @@
                                         <div class="input-group">
                                             <select name="type" required class="form-control selectpicker" id="type">
 
-                                                <option value="select">Select</option>
                                                 <option value="Inventory">Inventory</option>
                                                 <option value="Deal">Deal</option>
                                                 <option value="Service">Service</option>
@@ -364,6 +363,11 @@
     $("#unit").show(300);
     $("#start_date").hide();
     $("#last_date").hide();
+    $(".help-text").html('Product');
+            $("#unit").show(300);
+            $(".form-control").css("border-color", "");
+            $("#brand-sec").show(300);
+            $("#alert-qty").show(300);
     $("#material_table").hide();
     $('[data-toggle="tooltip"]').tooltip();
     $.ajaxSetup({
@@ -389,12 +393,7 @@
       branding:false
     });
     $('select[name="type"]').on('change', function() {
-        if($(this).val() == 'select'){
-            $(".help-text").html('');
-            $("#unit").show(300);
-            $(".form-control").css("border-color", "red");
-        }
-        else if($(this).val() == 'Inventory'){
+        if($(this).val() == 'Inventory'){
             $(".help-text").html('Product');
             $("#unit").show(300);
             $(".form-control").css("border-color", "");
