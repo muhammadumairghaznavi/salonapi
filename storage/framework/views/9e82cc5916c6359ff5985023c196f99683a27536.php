@@ -18,7 +18,6 @@
                                         <div class="input-group">
                                             <select name="type" required class="form-control selectpicker" id="type">
 
-                                                <option value="select">Select</option>
                                                 <option value="Inventory">Inventory</option>
                                                 <option value="Deal">Deal</option>
                                                 <option value="Service">Service</option>

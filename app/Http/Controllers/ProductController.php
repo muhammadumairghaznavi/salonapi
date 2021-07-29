@@ -30,7 +30,7 @@ class ProductController extends Controller
 
     function __construct(){
         $this->material=[
-            Material::all()
+            Material::where('type', 'Inventory')->get()
         ];
     }
 
@@ -287,6 +287,10 @@ class ProductController extends Controller
 
         $lims_product_data = Product::create($data);
         $lims_material_data = Material::create($data);
+
+        if ($request->material_used) {
+            $lims_product_data->update(['material_used' => 1]);
+        }
 
         $material  = $request->input('material');
         $arr = $material;

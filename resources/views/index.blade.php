@@ -364,27 +364,7 @@
                     <div class="badge badge-primary">{{trans('file.top')}} 5</div>
                   </div>
                 </div>
-                <div class="table-responsive">
-                    <table class="table">
-                      <thead>
-                        <tr>
-                          <th>SL No</th>
-                          <th>{{trans('file.Product Details')}}</th>
-                          <th>{{trans('file.qty')}}</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        @foreach($best_selling_qty as $key=>$sale)
-                        <?php $product = DB::table('products')->find($sale->product_id); ?>
-                        <tr>
-                          <td>{{$key + 1}}</td>
-                          <td>{{$product->name}}<br>[{{$product->code}}]</td>
-                          <td>{{$sale->sold_qty}}</td>
-                        </tr>
-                        @endforeach
-                      </tbody>
-                    </table>
-                  </div>
+                
               </div>
             </div>
             <div class="col-md-6">
@@ -395,27 +375,7 @@
                     <div class="badge badge-primary">{{trans('file.top')}} 5</div>
                   </div>
                 </div>
-                <div class="table-responsive">
-                    <table class="table">
-                      <thead>
-                        <tr>
-                          <th>SL No</th>
-                          <th>{{trans('file.Product Details')}}</th>
-                          <th>{{trans('file.qty')}}</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        @foreach($yearly_best_selling_qty as $key => $sale)
-                        <?php $product = DB::table('products')->find($sale->product_id); ?>
-                        <tr>
-                          <td>{{$key + 1}}</td>
-                          <td>{{$product->name}}<br>[{{$product->code}}]</td>
-                          <td>{{$sale->sold_qty}}</td>
-                        </tr>
-                        @endforeach
-                      </tbody>
-                    </table>
-                  </div>
+                
               </div>
             </div>
             <div class="col-md-6">
@@ -426,27 +386,7 @@
                     <div class="badge badge-primary">{{trans('file.top')}} 5</div>
                   </div>
                 </div>
-                <div class="table-responsive">
-                    <table class="table">
-                      <thead>
-                        <tr>
-                          <th>SL No</th>
-                          <th>{{trans('file.Product Details')}}</th>
-                          <th>{{trans('file.grand total')}}</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        @foreach($yearly_best_selling_price as $key => $sale)
-                        <?php $product = DB::table('products')->find($sale->product_id); ?>
-                        <tr>
-                          <td>{{$key + 1}}</td>
-                          <td>{{$product->name}}<br>[{{$product->code}}]</td>
-                          <td>{{number_format((float)$sale->total_price, 2, '.', '')}}</td>
-                        </tr>
-                        @endforeach
-                      </tbody>
-                    </table>
-                  </div>
+                
               </div>
             </div>
           </div>

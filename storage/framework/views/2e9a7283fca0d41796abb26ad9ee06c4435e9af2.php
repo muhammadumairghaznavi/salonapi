@@ -60,37 +60,6 @@
                                             </div>
                                         </div>
                                     </div> -->
-                                <div id="digital" class="col-md-4">
-                                    <div class="form-group">
-                                        <label><?php echo e(trans('file.Attach File')); ?> *</strong> </label>
-                                        <div class="input-group">
-                                            <input type="file" name="file" class="form-control">
-                                        </div>
-                                        <span class="validation-msg"></span>
-                                    </div>
-                                </div>
-                                <div id="combo" class="col-md-9 mb-1">
-                                    <label><?php echo e(trans('file.add_product')); ?></label>
-                                    <div class="search-box input-group mb-3">
-                                        <button class="btn btn-secondary"><i class="fa fa-barcode"></i></button>
-                                        <input type="text" name="product_code_name" id="lims_productcodeSearch" placeholder="Please type product code and select..." class="form-control" />
-                                    </div>
-                                    <label><?php echo e(trans('file.Combo Products')); ?></label>
-                                    <div class="table-responsive">
-                                        <table id="myTable" class="table table-hover order-list">
-                                            <thead>
-                                                <tr>
-                                                    <th><?php echo e(trans('file.product')); ?></th>
-                                                    <th><?php echo e(trans('file.Quantity')); ?></th>
-                                                    <th><?php echo e(trans('file.Unit Price')); ?></th>
-                                                    <th><i class="dripicons-trash"></i></th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
 
                                 <div class="col-md-4">
                                     <div class="form-group">
@@ -310,7 +279,7 @@
                                 </div>
                                 <div class="col-md-4 mt-3" >
                                     <input name="material_used" type="checkbox" id="material_used" value="1">&nbsp;
-                                    <label>
+                                    <label id="material_label">
                                         <h5>Material Used</h5>
                                     </label>
                                 </div>
@@ -329,7 +298,7 @@
 
                                                     <?php $__currentLoopData = $material[0]; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                                     <tr>
-                                                        <td><label><?php echo e(Form::checkbox('material[]', $item->id, false, ['class' => 'name'])); ?></label></td>
+                                                        <td><label><?php echo e(Form::checkbox('material[]', $item->id, false, ['class' => 'name', 'id' => 'material_item'])); ?></label></td>
                                                         <td><?php echo e($item->name); ?></td>
                                                         <td><?php echo e($item->price); ?></td>
                                                     </tr>
@@ -353,12 +322,9 @@
 
 <script type="text/javascript">
 
-    $("#digital").hide();
     $("ul#product").siblings('a').attr('aria-expanded','true');
     $("ul#product").addClass("show");
     $("ul#product #product-create-menu").addClass("active");
-    $("#digital").hide();
-    $("#combo").hide();
     $("#help-text").html('');
     $(".help-text").html('');
     $("#variant-section").hide();
@@ -373,7 +339,12 @@
             $(".form-control").css("border-color", "");
             $("#brand-sec").show(300);
             $("#alert-qty").show(300);
+            $("#material_used").hide();
+            $("#material_table").hide();
+            $("#material_label").hide();
     $("#material_table").hide();
+    $("#material_used").prop("checked", false);
+            $("#material_item").prop("checked", false);
     $('[data-toggle="tooltip"]').tooltip();
     $.ajaxSetup({
         headers: {
@@ -405,6 +376,11 @@
             $("#brand-sec").show(300);
             $("#alert-qty").show(300);
             $("#diffPrice-option").show(300);
+            $("#material_used").hide();
+            $("#material_table").hide();
+            $("#material_label").hide();
+            $("#material_used").prop("checked", false);
+            $("#material_item").prop("checked", false);
             // $("input[name='cost']").prop('required',false);
             // $("select[name='unit_id']").prop('required',false);
             // hide();
@@ -421,17 +397,17 @@
             $(".form-control").css("border-color", "");
             $("#brand-sec").hide(300);
             $("#alert-qty").hide(300);
+            $("#material_used").prop("checked", false);
+            $("#material_item").prop("checked", false);
             $("#diffPrice-option").hide(300);
-            // $("input[name='cost']").prop('required',false);
-            // $("select[name='unit_id']").prop('required',false);
-            // $("input[name='file']").prop('required',true);
-            // hide();
-            // $("#digital").show(300);
-            // $("#combo").hide(300);
-            // $("input[name='price']").prop('disabled',false);
-            // $("#is-variant").prop("checked", false);
-            // $("#is-diffPrice").prop("checked", false);
-            // $("#variant-section, #variant-option, #diffPrice-option, #diffPrice-section").hide(300);
+            $("#material_used").show();
+            $("#material_table").hide();
+            $("#material_label").show();
+            $("#material_used").on("change", function(){
+                if($(this).is(':checked')){
+                    $("#material_item").prop("required", true);
+                }
+            });
         }
         else if($(this).val() == 'Service'){
             $(".help-text").html('Service');
@@ -439,17 +415,18 @@
             $(".form-control").css("border-color", "");
             $("#alert-qty").hide(300);
             $("#brand-sec").hide(300);
-            // $("input[name='cost']").prop('required',true);
-            // $("select[name='unit_id']").prop('required',true);
-            // $("input[name='file']").prop('required',false);
-            // $("#cost").show(300);
-            // $("#unit").show(300);
-            // $("#alert-qty").show(300);
-            // $("#variant-option").show(300);
-            // $("#diffPrice-option").show(300);
+            $("#material_used").prop("checked", false);
+            $("#material_item").prop("checked", false);
+            $("#material_used").show();
+            $("#material_table").hide();
+            $("#material_label").show();
+            $("#material_used").on("change", function(){
+                if($(this).is(':checked')){
+                    $("#material_item").prop("required", true);
+                }
+            });
             $("#diffPrice-option").hide(300);
-            // $("#combo").hide(300);
-            // $("input[name='price']").prop('disabled',false);
+
         }
     });
     $('select[name="unit_id"]').on('change', function() {
