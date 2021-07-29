@@ -76,6 +76,7 @@ Route::group(['middleware' => ['auth', 'active']], function() {
 	Route::resource('products', 'ProductController');
     Route::post('/products/store', 'ProductController@store')->name('products.store');
 	Route::resource('deals', 'DealController');
+	Route::resource('services', 'ServiceController');
 
 	Route::post('importcustomer_group', 'CustomerGroupController@importCustomerGroup')->name('customer_group.import');
 	Route::post('customer_group/deletebyselection', 'CustomerGroupController@deleteBySelection');

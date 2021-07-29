@@ -1,5 +1,5 @@
 <div class="table-responsive">
-    <table class="table" id="deals-table">
+    <table class="table" id="service-table">
         <thead>
         <tr>
             <th>Name</th>
@@ -21,31 +21,31 @@
         </tr>
         </thead>
         <tbody>
-        @foreach($deals as $deal)
+        @foreach($services as $service)
             <tr>
-                <td>{{ $deal->name }}</td>
-            <td>{{ $deal->code }}</td>
-            <td>{{ $deal->type }}</td>
-            <td>{{ $deal->category->name }}</td>
-            <td>{{ $deal->unit_id }}</td>
-            <td>{{ $deal->price }}</td>
-            <td>{{ $deal->promotion }}</td>
-            <td>{{ $deal->promotion_price }}</td>
-            <td>{{ $deal->starting_date }}</td>
-            <td>{{ $deal->last_date }}</td>
-            <td>{{ $deal->image }}</td>
-            <td>{{ $deal->is_batch }}</td>
-            <td>{{ $deal->is_diffPrice }}</td>
-            <td>{{ $deal->featured }}</td>
-            <td>{{ $deal->is_active }}</td>
+                <td>{{ $service->name }}</td>
+            <td>{{ $service->code }}</td>
+            <td>{{ $service->type }}</td>
+            <td>{{ $service->category->name }}</td>
+            <td>{{ $service->unit_id }}</td>
+            <td>{{ $service->price }}</td>
+            <td>{{ $service->promotion }}</td>
+            <td>{{ $service->promotion_price }}</td>
+            <td>{{ $service->starting_date }}</td>
+            <td>{{ $service->last_date }}</td>
+            <td>{{ $service->image }}</td>
+            <td>{{ $service->is_batch }}</td>
+            <td>{{ $service->is_diffPrice }}</td>
+            <td>{{ $service->featured }}</td>
+            <td>{{ $service->is_active }}</td>
                 <td width="120">
-                    {!! Form::open(['route' => ['deals.destroy', $deal->id], 'method' => 'delete']) !!}
+                    {!! Form::open(['route' => ['services.destroy', $service->id], 'method' => 'delete']) !!}
                     <div class='btn-group'>
-                        <a href="{{ route('deals.show', [$deal->id]) }}"
+                        <a href="{{ route('services.show', [$service->id]) }}"
                            class='btn btn-default btn-xs'>
                             <i class="far fa-eye"></i>
                         </a>
-                        <a href="{{ route('deals.edit', [$deal->id]) }}"
+                        <a href="{{ route('services.edit', [$service->id]) }}"
                            class='btn btn-default btn-xs'>
                             <i class="far fa-edit"></i>
                         </a>

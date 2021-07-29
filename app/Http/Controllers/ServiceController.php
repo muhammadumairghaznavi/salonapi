@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Product;
 
-class DealController extends Controller
+class ServiceController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +14,8 @@ class DealController extends Controller
      */
     public function index()
     {
-        $deals = Product::where("type" , "Deal")->get();
-        return view('deals.index', compact('deals'));
+        $services = Product::where("type" , "Service")->get();
+        return view('services.index', compact('services'));
     }
 
     /**

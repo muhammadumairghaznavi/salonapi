@@ -1,31 +1,24 @@
-@extends('layout.main')
-
-@section('content')
+<?php $__env->startSection('content'); ?>
     <section class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
                     <h1>Deals</h1>
                 </div>
-                {{-- <div class="col-sm-6">
-                    <a class="btn btn-primary float-right"
-                       href="{{ route('deals.create') }}">
-                        Add New
-                    </a>
-                </div> --}}
+                
             </div>
         </div>
     </section>
 
     <div class="content px-3">
 
-        @include('flash::message')
+        <?php echo $__env->make('flash::message', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 
         <div class="clearfix"></div>
 
         <div class="card">
             <div class="card-body p-0">
-                @include('deals.table')
+                <?php echo $__env->make('deals.table', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 
                 <div class="card-footer clearfix">
                     <div class="float-right">
@@ -37,5 +30,7 @@
         </div>
     </div>
 
-@endsection
+<?php $__env->stopSection(); ?>
 
+
+<?php echo $__env->make('layout.main', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH D:\xampp\htdocs\salonapi\resources\views/deals/index.blade.php ENDPATH**/ ?>

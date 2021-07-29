@@ -136,6 +136,8 @@
                   @endif
                   @if($index_permission_active)
                   <li id="product-list-menu"><a href="{{route('products.index')}}">{{__('file.product_list')}}</a></li>
+                  <li id=""><a href="{{route('deals.index')}}">Deal List</a></li>
+                  <li id=""><a href="{{route('services.index')}}">Service List</a></li>
                   <?php
                     $add_permission = DB::table('permissions')->where('name', 'products-add')->first();
                     $add_permission_active = DB::table('role_has_permissions')->where([
