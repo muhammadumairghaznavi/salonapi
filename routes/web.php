@@ -292,6 +292,12 @@ Route::group(['middleware' => ['auth', 'active']], function() {
 
 	Route::get('/home', 'HomeController@index')->name('home');
 	Route::get('my-transactions/{year}/{month}', 'HomeController@myTransaction');
+
+
+
+    Route::get('rules', 'ScheduleController@rules')->name('schedules.rules');
+    Route::get('lunch', 'ScheduleController@lunch')->name('schedules.lunch');
+    Route::get('cleaning', 'ScheduleController@cleaning')->name('schedules.cleaning');
 });
 
 
