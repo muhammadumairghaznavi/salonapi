@@ -44,13 +44,9 @@
                     <div class='btn-group'>
                         <a href="<?php echo e(route('deals.show', [$deal->id])); ?>"
                            class='btn btn-default btn-xs'>
-                            <i class="far fa-eye"></i>
+                            <i class="fa fa-eye"></i>
                         </a>
-                        <a href="<?php echo e(route('deals.edit', [$deal->id])); ?>"
-                           class='btn btn-default btn-xs'>
-                            <i class="far fa-edit"></i>
-                        </a>
-                        <?php echo Form::button('<i class="far fa-trash-alt"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-xs', 'onclick' => "return confirm('Are you sure?')"]); ?>
+                        <?php echo Form::button('<i class="fas fa-trash-alt"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-xs', 'onclick' => "return confirm('Are you sure?')"]); ?>
 
                     </div>
                     <?php echo Form::close(); ?>

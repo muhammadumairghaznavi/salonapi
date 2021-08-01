@@ -67,6 +67,7 @@ class ProductController extends Controller
         );
 
         $totalData = Product::where('is_active', true)->count();
+        // dd($totalData);
         $totalFiltered = $totalData;
 
         if($request->input('length') != -1)
@@ -78,8 +79,11 @@ class ProductController extends Controller
         $dir = $request->input('order.0.dir');
         if(empty($request->input('search.value'))){
             $products = Product::with('category', 'brand', 'unit')->offset($start)
-                        ->where('is_active', true)
-                        ->limit($limit)
+                        ->where([
+                            ['is_active', true]
+
+
+                        ])->limit($limit)
                         ->orderBy($order,$dir)
                         ->get();
         }
@@ -92,7 +96,8 @@ class ProductController extends Controller
                         ->leftjoin('brands', 'products.brand_id', '=', 'brands.id')
                         ->where([
                             ['products.name', 'LIKE', "%{$search}%"],
-                            ['products.is_active', true]
+                            ['products.is_active', true],
+                            ['type', 'Inventory']
                         ])
                         ->orWhere([
                             ['products.code', 'LIKE', "%{$search}%"],

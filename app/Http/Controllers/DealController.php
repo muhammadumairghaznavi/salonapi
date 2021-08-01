@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Product;
+use App\Material;
+
 
 class DealController extends Controller
 {
@@ -47,7 +49,10 @@ class DealController extends Controller
      */
     public function show($id)
     {
-        //
+        $dealMaterials = Material::join("product_has_materials", "product_has_materials.material_id", "=", "materials.id")->where("product_has_materials.product_id", $id)->get();
+
+        $deal = Product::find($id);
+        return view('deals.show', compact('deal', 'dealMaterials'));
     }
 
     /**
@@ -81,6 +86,7 @@ class DealController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Product::find($id)->delete();
+        return redirect()->route('deals.index')->with("message", "Deal Deleted Successfully");
     }
 }
