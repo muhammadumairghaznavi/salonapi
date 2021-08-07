@@ -1,31 +1,55 @@
 @extends('layout.main')
 @section('content')
-<section>
-	<div class="container-fluid">
-		<div class="card">
-			<div class="card-body">
+    <section>
+        <div class="container-fluid">
+            <div class="card">
 
-				<div class="table-responsive mt-4">
-					<table class="table table-bordered" style="border-top: 1px solid #dee2e6; border-bottom: 1px solid #dee2e6;">
+                <div class="card-body">
 
-					    <tbody>
-						    <tr>
-							    <td><strong>Sunday</strong></td>
-							    <td><strong>Monday</strong></td>
-							    <td><strong>Tuesday</strong></td>
-							    <td><strong>Wednesday</strong></td>
-							    <td><strong>Thrusday</strong></td>
-							    <td><strong>Friday</strong></td>
-							    <td><strong>Saturday</strong></td>
-						    </tr>
-
-					    </tbody>
-					</table>
-				</div>
-			</div>
-		</div>
-	</div>
-</section>
-
-
+                    <h5 class="card-title">Rules & Regulations</h5>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="card" style="width: 18rem;">
+                                <div class="card-body">
+                                    <h5 class="card-title">Card title</h5>
+                                    <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+                                    <p class="card-text">Some quick example text to build on the card title and make up the
+                                        bulk
+                                        of the card's content.</p>
+                                    <a href="#" class="card-link">Card link</a>
+                                    <a href="#" class="card-link">Another link</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card" style="width: 18rem;">
+                                <div class="card-body">
+                                    <h5 class="card-title">Card title</h5>
+                                    <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+                                    <p class="card-text">Some quick example text to build on the card title and make up the
+                                        bulk
+                                        of the card's content.</p>
+                                    <a href="#" class="card-link">Card link</a>
+                                    <a href="#" class="card-link">Another link</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card" style="width: 18rem;">
+                                <div class="card-body">
+                                    <h5 class="card-title">Card title</h5>
+                                    <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+                                    <p class="card-text">Some quick example text to build on the card title and make up the
+                                        bulk
+                                        of the card's content.</p>
+                                    <a href="#" class="card-link">Card link</a>
+                                    <a href="#" class="card-link">Another link</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 @endsection

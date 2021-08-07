@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Product;
+use App\Material;
 
 class ServiceController extends Controller
 {
@@ -47,7 +48,10 @@ class ServiceController extends Controller
      */
     public function show($id)
     {
-        //
+        $serviceMaterials = Material::join("product_has_materials", "product_has_materials.material_id", "=", "materials.id")->where("product_has_materials.product_id", $id)->get();
+
+        $service = Product::find($id);
+        return view('services.show', compact('service', 'serviceMaterials'));
     }
 
     /**
@@ -81,6 +85,7 @@ class ServiceController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Product::find($id)->delete();
+        return redirect()->route('services.index')->with("message", "Deal Deleted Successfully");
     }
 }

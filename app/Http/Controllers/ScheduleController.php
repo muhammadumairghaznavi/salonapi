@@ -20,11 +20,13 @@ class ScheduleController extends Controller
     }
     public function lunch(){
 
+        return view('schedules.lunchchart');
 
     }
     public function cleaning(){
 
 
+        return view('schedules.cleaning');
 
 
     }

@@ -82,6 +82,13 @@
                                         <input type="number" name="alert_quantity" class="form-control" step="any">
                                     </div>
                                 </div>
+                                <div id="cost" class="col-md-4">
+                                    <div class="form-group">
+                                       <label class="product_cost">{{ trans('file.Product Cost') }} *</strong> </label>
+                                       <input type="number" name="cost" required class="form-control" step="any">
+                                       <span class="validation-msg"></span>
+                                   </div>
+                            </div>
                                 <div id="unit" class="col-md-12">
                                     <div class="row ">
                                         <div class="col-md-4 form-group">
@@ -117,13 +124,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <!-- <div id="cost" class="col-md-4">
-                                         <div class="form-group">
-                                            <label>{{ trans('file.Product Cost') }} *</strong> </label>
-                                            <input type="number" name="cost" required class="form-control" step="any">
-                                            <span class="validation-msg"></span>
-                                        </div>
-                                    </div> -->
+
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label class="help-text"></strong> </label> <label for="">Price *</label>
@@ -326,6 +327,9 @@
     $("#help-text").html('');
     $(".help-text").html('');
     $("#variant-section").hide();
+    $("input[name='cost']").show(300);
+    $(".product_cost").show(300);
+
     $("#diffPrice-section").hide();
     $("#promotion_price").hide();
     $("#brand-sec").show(300);
@@ -379,6 +383,9 @@
             $("#material_label").hide();
             $("#material_used").prop("checked", false);
             $("#material_item").prop("checked", false);
+            $("input[name='cost']").prop('required', true);
+            $("input[name='cost']").show(300);
+            $(".product_cost").show(300);
             // $("input[name='cost']").prop('required',false);
             // $("select[name='unit_id']").prop('required',false);
             // hide();
@@ -401,6 +408,8 @@
             $("#material_used").show();
             $("#material_table").hide();
             $("#material_label").show();
+            $("input[name='cost']").hide(300);
+            $(".product_cost").hide(300);
             $("#material_used").on("change", function(){
                 if($(this).is(':checked')){
                     $("#material_item").prop("required", true);
@@ -417,6 +426,8 @@
             $("#material_item").prop("checked", false);
             $("#material_used").show();
             $("#material_table").hide();
+            $("input[name='cost']").hide(300);
+            $(".product_cost").hide(300);
             $("#material_label").show();
             $("#material_used").on("change", function(){
                 if($(this).is(':checked')){

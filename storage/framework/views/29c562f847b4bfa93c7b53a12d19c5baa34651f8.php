@@ -47,6 +47,8 @@
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
 
     <script type="text/javascript" src="<?php echo asset('public/vendor/jquery/jquery.min.js'); ?>"></script>
+    <script type="text/javascript" src="<?php echo e(asset('vendor/jquery/jquery.tabledit.js')); ?>"></script>
+
     <script type="text/javascript" src="<?php echo asset('public/vendor/jquery/jquery-ui.min.js'); ?>"></script>
     <script type="text/javascript" src="<?php echo asset('public/vendor/jquery/bootstrap-datepicker.min.js'); ?>"></script>
     <script type="text/javascript" src="<?php echo asset('public/vendor/jquery/jquery.timepicker.min.js'); ?>"></script>
@@ -361,14 +363,13 @@
                             <a href="#schedule" aria-expanded="false" data-toggle="collapse"> <i
                                     class="dripicons-document"></i><span>Schedule</span><span></a>
                             <ul id="schedule" class="collapse list-unstyled ">
-                                <li id="schedule-list-menu"><a
-                                        href="<?php echo e(route('schedules.rules')); ?>">Rules & Regulations</a>
+                                <li id="schedule-list-menu"><a href="<?php echo e(route('schedules.rules')); ?>">Rules &
+                                        Regulations</a>
                                 </li>
-                                <li id="schedule-list-menu"><a
-                                        href="<?php echo e(route('schedules.lunch')); ?>">Lunch Chart</a>
+                                <li id="schedule-list-menu"><a href="<?php echo e(route('schedules.lunch')); ?>">Lunch Chart</a>
                                 </li>
-                                <li id="schedule-list-menu"><a
-                                        href="<?php echo e(route('schedules.cleaning')); ?>">Cleaning Chart</a>
+                                <li id="schedule-list-menu"><a href="<?php echo e(route('schedules.cleaning')); ?>">Cleaning
+                                        Chart</a>
                                 </li>
                             </ul>
                         </li>
@@ -1719,6 +1720,23 @@
                 });
             });
         }
+    </script>
+    <script>
+        $('#my-table').TablEdit({
+            url: 'example.php',
+            columns: {
+                identifier: [0, 'id'],
+                editable: [
+                    [1, 'col1'],
+                    [2, 'col1'],
+                    [3, 'col3'],
+                    [4, 'col4'],
+                    [5, 'col5'],
+                    [6, 'col6'],
+                    [7, 'col7']
+                ]
+            }
+        });
     </script>
     <script type="text/javascript">
         var alert_product = <?php echo json_encode($alert_product); ?>;
