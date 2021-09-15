@@ -37,7 +37,7 @@ class ReportController extends Controller
     {
         $role = Role::find(Auth::user()->role_id);
         if($role->hasPermissionTo('product-qty-alert')){
-            
+
             $lims_product_data = Product::select('name','code', 'image', 'qty', 'alert_quantity')->where('is_active', true)
             ->whereColumn('alert_quantity', '>', 'qty')->get();
 
@@ -1620,5 +1620,11 @@ class ReportController extends Controller
         $lims_sale_data = Sale::where('payment_status', '!=', 4)->whereDate('created_at', '>=' , $start_date)->whereDate('created_at', '<=' , $end_date)->get();
 
         return view('report.due_report', compact('lims_sale_data', 'start_date', 'end_date'));
+    }
+
+
+    public function daily_sale_by_staff(Request $request){
+        $data = $request->all();
+
     }
 }
